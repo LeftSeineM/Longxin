@@ -1,0 +1,30 @@
+.vscode/
+.metals/
+.bloop/
+out/
+target/
+project/*
+!project/build.properties
+.bsp/
+.idea/
+tmp
+/build/
+linux_run.tar
+
+# Generated tool state
+.Xil/
+xsim.dir/
+*.jou
+*.log
+*.pb
+clockInfo.txt
+dfx_runtime.txt
+tight_setup_hold_pins.txt
+
+# Keep text reports, but not large Vivado checkpoints.
+reports/**/*.dcp
+
+# Generated submission RTL is versioned; simulator databases are not.
+generated/**/xsim.dir/
+generated/**/xvlog.log
+generated/**/xvlog.pb

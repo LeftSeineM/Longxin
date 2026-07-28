@@ -1,0 +1,51 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Tue Jul 28 23:01:55 2026
+| Host         : MM的ThinkBook16p running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 4 -file D:/NSCSCC2026/WeBattle-Core/reports/WB-N1/synth/utilization_hier_nop_old.rpt
+| Design       : core_top
+| Device       : xc7a200tfbg676-2
+| Speed File   : -2
+| Design State : Synthesized
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------------------------+-----------------------+------------+------------+---------+------+-------+--------+--------+------------+
+|                 Instance                 |         Module        | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs  | RAMB36 | RAMB18 | DSP Blocks |
++------------------------------------------+-----------------------+------------+------------+---------+------+-------+--------+--------+------------+
+| core_top                                 |                 (top) |      43678 |      43345 |     304 |   29 | 16893 |     26 |      5 |          4 |
+|   (core_top)                             |                 (top) |          0 |          0 |       0 |    0 |     0 |      0 |      0 |          0 |
+|   u_nop                                  |             mycpu_top |      43678 |      43345 |     304 |   29 | 16893 |     26 |      5 |          4 |
+|     toplevel_cpu                         |             MyCPUCore |      43457 |      43124 |     304 |   29 | 16757 |     24 |      4 |          4 |
+|       (toplevel_cpu)                     |             MyCPUCore |      29838 |      29809 |       0 |   29 | 15123 |      0 |      0 |          0 |
+|       (DCachePlugin_dataRAMs_0)          |              SDPRAM_3 |         69 |         69 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       (DCachePlugin_dataRAMs_1)          |            SDPRAM_3_0 |        282 |        282 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       (DCachePlugin_infoRAM)             |              SDPRAM_2 |         86 |         86 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       (ICachePlugin_dataRAMs_0)          |                SDPRAM |        529 |        529 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       (ICachePlugin_dataRAMs_1)          |              SDPRAM_1 |        529 |        529 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       DCachePlugin_dirtyBitsManager      |      DirtyBitsManager |        184 |        184 |       0 |    0 |   128 |      0 |      0 |          0 |
+|       FetchBufferPlugin_bufferFIFO       |                unamed |       2375 |       2375 |       0 |    0 |   917 |      0 |      0 |          0 |
+|       GlobalPredictorBTBPlugin_btb       |       ReorderCacheRAM |        297 |        297 |       0 |    0 |     0 |      4 |      0 |          0 |
+|         (rams_2)                         |           SDPRAM_6_10 |        140 |        140 |       0 |    0 |     0 |      0 |      0 |          0 |
+|         (rams_3)                         |           SDPRAM_6_11 |         76 |         76 |       0 |    0 |     0 |      0 |      0 |          0 |
+|       GlobalPredictorBTBPlugin_predictor |  CorrelatingPredictor |         73 |         73 |       0 |    0 |    10 |      0 |      4 |          0 |
+|         pht                              |     ReorderCacheRAM_1 |         73 |         73 |       0 |    0 |     5 |      0 |      4 |          0 |
+|       ROBFIFOPlugin_robInfo              |              unamed_2 |       7428 |       7124 |     304 |    0 |   215 |      0 |      0 |          0 |
+|         (ROBFIFOPlugin_robInfo)          |              unamed_2 |        753 |        753 |       0 |    0 |    21 |      0 |      0 |          0 |
+|         ram                              | ReorderCacheRAMOutReg |       6675 |       6371 |     304 |    0 |   194 |      0 |      0 |          0 |
+|       RenamePlugin_freeList              |              unamed_1 |       1089 |       1089 |       0 |    0 |   221 |      0 |      0 |          0 |
+|       unsignedDivider_2                  |       UnsignedDivider |        527 |        527 |       0 |    0 |    71 |      0 |      0 |          0 |
+|     toplevel_axiBuffer                   |             AxiBuffer |        197 |        197 |       0 |    0 |   127 |      2 |      1 |          0 |
+|       (toplevel_axiBuffer)               |             AxiBuffer |        158 |        158 |       0 |    0 |    79 |      0 |      0 |          0 |
++------------------------------------------+-----------------------+------------+------------+---------+------+-------+--------+--------+------------+
+
+

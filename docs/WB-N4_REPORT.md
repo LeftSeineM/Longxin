@@ -42,6 +42,24 @@ profile; the hardware intervention itself is the local register attribute.
 All collected commit, cache and branch counters match WB-N2.  Measured CPI/IPC
 therefore neither improves nor regresses.
 
+The complete official performance suite was subsequently run in two preserved
+segments (14 tests before a user-requested pause, then the remaining 6):
+**20/20 PASS**.  The merged baseline has a SoC-count geometric mean of
+200,777.78 and a CPU-count geometric mean of 180,049.55.  See
+`reports/WB-N4/official/all20_summary.md`.
+
+The full-suite miss profile identifies data-cache behavior as the dominant
+remaining bottleneck:
+
+- `fireye_A0`: 3,113,544 CPU cycles and 15,334 D-cache misses;
+- `inner_product`: 1,245,307 CPU cycles and 4,407 D-cache misses;
+- `loop_induction`: 775,449 CPU cycles and 2,075 D-cache misses;
+- `fireye_D1`: 543,646 CPU cycles and 1,897 D-cache misses.
+
+Performance counters include boot/measurement regions that differ from the
+official CPU Count interval, so their commit/count ratio is diagnostic and is
+not reported as architectural IPC.
+
 ## 4. Routed PPA
 
 Same Vivado 2025.2 flow, device and constraints:

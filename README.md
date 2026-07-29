@@ -21,6 +21,8 @@ WeBattle-Core 是面向 NSCSCC 2026 团体赛开发的 LA32R 乱序多发射处�
   20/20 性能与物理实现对比基线。
 - `WB-N5G`：在 N4 上增加 4096 项 packed tournament 分支预测器；全局与
   bimodal 预测并行，2-bit chooser 按 PC 学习选择。
+- `WB-N6`：保留 N5G 性能配置，使用独立实现的显式 occupancy 四入三出
+  取指队列替换上游 `MultiPortFIFOVec`，并保留 N5 配置作为 A/B 回退。
 
 ## WB-N5G 架构
 
@@ -41,6 +43,8 @@ java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N1"
 java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N2"
 java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N5"
 java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N5 synth"
+java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N6"
+java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N6 synth"
 ```
 
 仿真观测版生成结果位于 `build/wb-n1/wb_raw_top.v`。提交综合版使用
@@ -55,6 +59,10 @@ WB-N2 的关键创新、消融和 PPA 实测见
 WB-N5G 的设计与百分比报告见
 [docs/WB-N5_DESIGN.md](docs/WB-N5_DESIGN.md) 和
 [docs/WB-N5_REPORT.md](docs/WB-N5_REPORT.md)。
+模块继承/自研边界和 N6 设计分别见
+[docs/WB_COMPONENT_OWNERSHIP.md](docs/WB_COMPONENT_OWNERSHIP.md) 和
+[docs/WB-N6_DESIGN.md](docs/WB-N6_DESIGN.md)；完整百分比与消融报告见
+[docs/WB-N6_REPORT.md](docs/WB-N6_REPORT.md)。
 
 ## 合规原则
 

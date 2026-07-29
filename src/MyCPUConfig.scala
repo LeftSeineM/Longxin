@@ -117,6 +117,14 @@ object WeBattleProfiles {
       bpu = N4.frontend.bpu.copy(useTournament = true)
     )
   )
+
+  /** N6 replaces the inherited pointer-phase fetch FIFO with the independently
+    * implemented WeBattle occupancy-count queue.  N5 remains available as the
+    * exact fallback for A/B validation.
+    */
+  def N6: MyCPUConfig = N5.copy(
+    frontend = N5.frontend.copy(useWeBattleFetchQueue = true)
+  )
 }
 
 final case class FrontendConfig(
@@ -125,7 +133,8 @@ final case class FrontendConfig(
     btb: BTBConfig = BTBConfig(),
     bpu: BPUConfig = BPUConfig(),
     fetchWidth: Int = 4,
-    fetchBufferDepth: Int = 8
+    fetchBufferDepth: Int = 8,
+    useWeBattleFetchQueue: Boolean = false
 )
 
 final case class RegFileConfig(

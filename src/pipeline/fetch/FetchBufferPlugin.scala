@@ -22,28 +22,46 @@ final case class InstBufferEntry(config: FrontendConfig) extends Bundle {
 class FetchBufferPlugin(config: MyCPUConfig) extends Plugin[FetchPipeline] {
   private val frontend = config.frontend
   private val icache = config.frontend.icache
-  val bufferFIFO =
-    new MultiPortFIFOVec(
-      InstBufferEntry(config.frontend),
-      frontend.fetchBufferDepth,
-      frontend.fetchWidth,
-      config.decode.decodeWidth
-    ) {
-      val flush = in(Bool)
-      when(flush) {
-        pushPtr := 0
-        popPtr := 0
-        isRisingOccupancy := False
-        // io.push.foreach(_.setBlocked())
-      }
-      pushPtr.asOutput()
-      popPtr.asOutput()
-    }
-  def popPorts = bufferFIFO.io.pop
+  private val weBattleQueue =
+    if (frontend.useWeBattleFetchQueue)
+      Some(
+        new WeBattleFetchQueue(
+          InstBufferEntry(config.frontend),
+          frontend.fetchBufferDepth,
+          frontend.fetchWidth,
+          config.decode.decodeWidth
+        )
+      )
+    else None
+  private val inheritedQueue =
+    if (!frontend.useWeBattleFetchQueue)
+      Some(
+        new MultiPortFIFOVec(
+          InstBufferEntry(config.frontend),
+          frontend.fetchBufferDepth,
+          frontend.fetchWidth,
+          config.decode.decodeWidth
+        ) {
+          val flush = in(Bool)
+          when(flush) {
+            pushPtr := 0
+            popPtr := 0
+            isRisingOccupancy := False
+          }
+        }
+      )
+    else None
+
+  private val pushPorts =
+    weBattleQueue.map(_.io.enqueue).getOrElse(inheritedQueue.get.io.push)
+  def popPorts =
+    weBattleQueue.map(_.io.dequeue).getOrElse(inheritedQueue.get.io.pop)
+
   override def build(pipeline: FetchPipeline): Unit = pipeline.IF2 plug new Area {
 
     val flush = pipeline.globalService(classOf[CommitPlugin]).needFlush
-    bufferFIFO.flush := flush // clear when need flush. Is this OK??
+    weBattleQueue.foreach(_.io.flush := flush)
+    inheritedQueue.foreach(_.flush := flush)
 
     import pipeline.IF2._
     import pipeline.signals._
@@ -52,7 +70,7 @@ class FetchBufferPlugin(config: MyCPUConfig) extends Plugin[FetchPipeline] {
     val isStall = False
     val fetchPacket = input(pipeline.signals.FETCH_PACKET)
     for (i <- 0 until frontend.fetchWidth) {
-      val p = bufferFIFO.io.push(i)
+      val p = pushPorts(i)
       val fetchWord = fetchPacket.insts(i)
       val fetchWordValid = fetchWord.valid && input(pipeline.signals.INSTRUCTION_MASK)(i)
       // 把前端异常挂给第一条指令，后面的指令没有异常，减少fan out

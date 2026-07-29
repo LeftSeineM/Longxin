@@ -132,6 +132,7 @@ object WeBattleMain {
       case "N2" => WeBattleProfiles.N2
       case "N4" => WeBattleProfiles.N4
       case "N5" => WeBattleProfiles.N5
+      case "N6" => WeBattleProfiles.N6
       case other => throw new IllegalArgumentException(s"Unknown WeBattle profile: $other")
     }
 

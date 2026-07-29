@@ -1,5 +1,20 @@
 # WeBattle-Core Changelog
 
+## WB-N6B（独立取指队列替换，2026-07-30）
+
+- 新增独立实现的 8 项、4 入 3 出 `WeBattleFetchQueue`，使用显式 occupancy、
+  一热环形槽位选择、原子 flush 和仿真契约断言；N5 保留为 A/B 回退。
+- 官方功能 58/58、性能 20/20 全通过；全部周期和事件计数与 WB-N5G
+  逐字段一致，性能周期变化 **0.000%**。
+- post-route phys-opt WNS +0.019 ns、TNS 0、无布线错误；延迟估算 Fmax
+  100.190 MHz，相对 N5G **+0.090%**。
+- route LUT 47,030，相对 N5G +3,173（**+7.235%**）；FF -0.041%，
+  BRAM/DSP 不变。LUT 代价在报告中明确披露。
+- N6A 动态索引版虽通过 58/58、20/20，但 LUT +7.641%、WNS -0.170 ns，
+  被否决；N6C 无方向内联版 bitcount 卡住，被正确性门禁否决。
+- 新增模块继承/自研归属矩阵。详见 `docs/WB_COMPONENT_OWNERSHIP.md`、
+  `docs/WB-N6_DESIGN.md` 和 `docs/WB-N6_REPORT.md`。
+
 ## WB-N5G（紧凑型竞赛分支预测器，2026-07-29）
 
 - 在 WB-N4-A 上加入 global-history PHT、PC-only bimodal PHT 与 2-bit

@@ -17,14 +17,19 @@ WeBattle-Core 是面向 NSCSCC 2026 团体赛开发的 LA32R 乱序多发射处�
   PHT冷启动策略，是第一版独立维护的派生配置。
 - `WB-N2`：初赛专用 DA/DMW 快速翻译配置，保留完整直接映射语义并在生成期
   裁掉未使用的全关联 TLB 查找；Linux/MMU 配置继续由 N1 保留。
+- `WB-N4-A`：在 N2 上增加可复现的 dispatch-valid 扇出约束，是已冻结的
+  20/20 性能与物理实现对比基线。
+- `WB-N5G`：在 N4 上增加 4096 项 packed tournament 分支预测器；全局与
+  bimodal 预测并行，2-bit chooser 按 PC 学习选择。
 
-## WB-N1 / WB-N2 架构
+## WB-N5G 架构
 
 - LA32R，乱序执行、顺序提交
 - 4 路取指、3 路译码、最多 5 个执行通道、3 路退休
 - 32 项 ROB、物理寄存器重命名、推测唤醒与旁路网络
 - 两路 4 KiB I-Cache、两路 4 KiB D-Cache
-- 1024 项 BTB、8192 项 PHT、可配置bank-safe gshare、8 项 RAS
+- 1024 项 BTB、8192 项 global PHT、4096 项 packed
+  bimodal/chooser 表、8 项 RAS
 - 精确异常、中断、CSR、TLB、AXI
 
 ## 生成
@@ -34,6 +39,8 @@ WeBattle-Core 是面向 NSCSCC 2026 团体赛开发的 LA32R 乱序多发射处�
 ```powershell
 java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N1"
 java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N2"
+java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N5"
+java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N5 synth"
 ```
 
 仿真观测版生成结果位于 `build/wb-n1/wb_raw_top.v`。提交综合版使用
@@ -45,8 +52,9 @@ java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N2"
 WB-N1 的实测工程报告见 [docs/WB-N1_REPORT.md](docs/WB-N1_REPORT.md)。
 WB-N2 的关键创新、消融和 PPA 实测见
 [docs/WB-N2_INNOVATION.md](docs/WB-N2_INNOVATION.md)。
-N2 当前已通过 bitcount、CoreMark 和 100 MHz 布局布线时序；完整
-58/58、20/20 与上板回归仍是进入提交候选版前的硬门槛。
+WB-N5G 的设计与百分比报告见
+[docs/WB-N5_DESIGN.md](docs/WB-N5_DESIGN.md) 和
+[docs/WB-N5_REPORT.md](docs/WB-N5_REPORT.md)。
 
 ## 合规原则
 

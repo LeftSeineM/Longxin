@@ -69,6 +69,8 @@ class FetchBufferPlugin(config: MyCPUConfig) extends Plugin[FetchPipeline] {
       p.predInfo.predictAddr := input(PREDICT_ADDR)
       p.predRecover.recoverTop := input(pipeline.signals.RECOVER_TOP)
       p.predRecover.predictCounter := input(pipeline.signals.PRED_COUNTER)(i)
+      p.predRecover.bimodalCounter := input(pipeline.signals.BIMODAL_COUNTER)(i)
+      p.predRecover.chooserCounter := input(pipeline.signals.CHOOSER_COUNTER)(i)
       p.predRecover.ghr := input(PRIVATE_BRANCH_HISTORY)(i)
 
       // 任何fetch出的word不能进buffer，整个stall住

@@ -35,6 +35,8 @@ class FetchSignals(config: MyCPUConfig) {
   object BRANCH_MASK extends Stageable(Bits(fetchWidth bits))
   object TAKEN_MASK extends Stageable(Bits(fetchWidth bits))
   object PRED_COUNTER extends Stageable(Vec(UInt(config.frontend.bpu.counterWidth bits), fetchWidth))
+  object BIMODAL_COUNTER extends Stageable(Vec(UInt(config.frontend.bpu.counterWidth bits), fetchWidth))
+  object CHOOSER_COUNTER extends Stageable(Vec(UInt(config.frontend.bpu.counterWidth bits), fetchWidth))
   object GLOBAL_BRANCH_HISTORY extends Stageable(UInt(config.frontend.bpu.historyWidth bits))
   object PRIVATE_BRANCH_HISTORY extends Stageable(Vec(UInt(config.frontend.bpu.historyWidth bits), fetchWidth))
   object PREDICT_ADDR extends Stageable(UWord())

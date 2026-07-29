@@ -53,7 +53,8 @@ final case class BPUConfig(
     historyWidth: Int = 5,
     counterWidth: Int = 2,
     initialCounter: Int = 1,
-    useBankSafeGShare: Boolean = false
+    useBankSafeGShare: Boolean = false,
+    useTournament: Boolean = false
 ) {
   require(initialCounter >= 0 && initialCounter < (1 << counterWidth))
   val indexWidth = log2Up(sets)
@@ -109,6 +110,12 @@ object WeBattleProfiles {
   /** N4 is a local physical-timing experiment derived from N2. */
   def N4: MyCPUConfig = N2.copy(
     timing = TimingConfig(dispatchValidMaxFanout = 64)
+  )
+
+  def N5: MyCPUConfig = N4.copy(
+    frontend = N4.frontend.copy(
+      bpu = N4.frontend.bpu.copy(useTournament = true)
+    )
   )
 }
 

@@ -16,7 +16,11 @@ final case class BranchPredictInfoBundle(withAddr: Boolean = true) extends Bundl
 
 final case class PredictRecoverBundle(config: FrontendConfig) extends Bundle {
   val recoverTop = UInt(log2Up(config.btb.rasEntries) bits)
+  // Global/correlating predictor counter.  Kept under the original field name
+  // so non-tournament profiles preserve their exact payload semantics.
   val predictCounter = UInt(config.bpu.counterWidth bits)
+  val bimodalCounter = UInt(config.bpu.counterWidth bits)
+  val chooserCounter = UInt(config.bpu.counterWidth bits)
   val ghr = UInt(config.bpu.historyWidth bits)
 }
 

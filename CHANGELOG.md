@@ -1,6 +1,21 @@
 # WeBattle-Core Changelog
 
-# WB-N4-A（DISPATCH-valid 扇出控制，2026-07-29）
+## WB-N5G（紧凑型竞赛分支预测器，2026-07-29）
+
+- 在 WB-N4-A 上加入 global-history PHT、PC-only bimodal PHT 与 2-bit
+  chooser 组成的 tournament predictor。
+- 将 bimodal 与 chooser 打包为 4096 项 4-bit 表；相对首个正确的大表
+  N5E，route LUT -4.983%、BRAM -6.154%，20 项结果逐项一致。
+- 官方功能测试 58/58 PASS，性能测试 20/20 PASS。
+- 相对 WB-N4-A，CPU 周期几何平均加速 1.028746x（+2.875%），SoC 周期
+  加速 1.017652x（+1.765%），总分支误预测减少 13.003%。
+- 10 ns post-route phys-opt WNS +0.010 ns、TNS 0、无布线错误；延迟估算
+  Fmax 较 N4 下降 1.291%，结合 CPU 周期后的性能估算仍提升 1.546%。
+- route 资源相对 N4：LUT +1.107%、FF +0.059%、BRAM +7.018%、DSP 不变。
+- 详细设计与完整百分比报告见 `docs/WB-N5_DESIGN.md` 和
+  `docs/WB-N5_REPORT.md`。
+
+## WB-N4-A（DISPATCH-valid 扇出控制，2026-07-29）
 
 - 仅对超过 500 个负载的 DISPATCH valid 寄存器添加 `max_fanout=64`，
   不改变功能逻辑和流水级。

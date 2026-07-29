@@ -4,7 +4,8 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$OutputMarkdown,
     [Parameter(Mandatory = $true)]
-    [string]$OutputCsv
+    [string]$OutputCsv,
+    [string]$Title = 'Official 20-test performance result'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -79,7 +80,7 @@ $rows | Export-Csv -NoTypeInformation -Encoding UTF8 -Path $OutputCsv
 $socGeo = [math]::Exp(($rows | ForEach-Object { [math]::Log($_.SoCCount) } | Measure-Object -Average).Average)
 $cpuGeo = [math]::Exp(($rows | ForEach-Object { [math]::Log($_.CPUCount) } | Measure-Object -Average).Average)
 $lines = [Collections.Generic.List[string]]::new()
-$lines.Add('# WB-N4-A official 20-test performance baseline')
+$lines.Add("# $Title")
 $lines.Add('')
 $lines.Add("- Result: $($rows.Count) / 20 PASS")
 $lines.Add("- SoC-count geometric mean: $([math]::Round($socGeo, 2))")
@@ -98,7 +99,7 @@ foreach ($row in $rows) {
 }
 [IO.File]::WriteAllLines($OutputMarkdown, $lines, [Text.UTF8Encoding]::new($false))
 
-Write-Host "Merged official performance baseline: $($rows.Count)/20 PASS"
+Write-Host "Merged official performance result: $($rows.Count)/20 PASS"
 Write-Host "Markdown: $OutputMarkdown"
 Write-Host "CSV: $OutputCsv"
 if ($rows.Count -ne 20) {

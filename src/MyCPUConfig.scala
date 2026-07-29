@@ -105,6 +105,11 @@ object WeBattleProfiles {
   def N2: MyCPUConfig = N1.copy(
     translation = TranslationConfig(contestDirectMode = true)
   )
+
+  /** N4 is a local physical-timing experiment derived from N2. */
+  def N4: MyCPUConfig = N2.copy(
+    timing = TimingConfig(dispatchValidMaxFanout = 64)
+  )
 }
 
 final case class FrontendConfig(
@@ -200,6 +205,11 @@ final case class TranslationConfig(
     contestDirectMode: Boolean = false
 )
 
+/** Optional FPGA synthesis guidance. Zero leaves the upstream netlist alone. */
+final case class TimingConfig(
+    dispatchValidMaxFanout: Int = 0
+)
+
 final case class MyCPUConfig(
     axiConfig: Axi4Config = Axi4Config(
       addressWidth = 32,
@@ -227,5 +237,6 @@ final case class MyCPUConfig(
     interrupt: InterruptConfig = InterruptConfig(),
     // TLB
     tlbConfig: TLBConfig = TLBConfig(),
-    translation: TranslationConfig = TranslationConfig()
+    translation: TranslationConfig = TranslationConfig(),
+    timing: TimingConfig = TimingConfig()
 )

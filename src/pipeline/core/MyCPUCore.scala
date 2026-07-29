@@ -144,6 +144,15 @@ class MyCPUCore(config: MyCPUConfig) extends Component with MultiPipeline {
   val ID: Stage = decodePipeline.ID
   val RENAME: Stage = decodePipeline.RENAME
   val DISPATCH: Stage = decodePipeline.DISPATCH
+  if (config.timing.dispatchValidMaxFanout > 0) {
+    // DISPATCH valid fans out into every issue queue and the ROB write-first
+    // network.  Ask Vivado to replicate only this register instead of changing
+    // the queue logic or inserting a pipeline bubble.
+    DISPATCH.arbitration.isValid.addAttribute(
+      "max_fanout",
+      config.timing.dispatchValidMaxFanout.toString
+    )
+  }
   val EXE: Stage = null
   val MEM1: Stage = memPipeline.MEM1
   val MEM2: Stage = memPipeline.MEM2

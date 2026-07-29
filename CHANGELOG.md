@@ -1,5 +1,15 @@
 # WeBattle-Core Changelog
 
+# WB-N4-A（DISPATCH-valid 扇出控制，2026-07-29）
+
+- 仅对超过 500 个负载的 DISPATCH valid 寄存器添加 `max_fanout=64`，
+  不改变功能逻辑和流水级。
+- bitcount、CoreMark PASS 且 CPU Count 与 WB-N2 完全一致。
+- route LUT -0.319%、FF +0.307%、10 ns WNS +5 ps，延迟估算 Fmax
+  +0.051%。
+- 结论：保留为小幅正收益 checkpoint，不包装成主要性能升级。详见
+  `docs/WB-N4_REPORT.md`。
+
 ## WB-N2-B（初赛翻译快路径，2026-07-29）
 
 - 新增 N2 双配置地址翻译前端：N1 保留完整 TLB/MMU，N2 保留 DA 与

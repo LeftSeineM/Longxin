@@ -1,5 +1,20 @@
 # WeBattle-Core Changelog
 
+## WB-N2-B（初赛翻译快路径，2026-07-29）
+
+- 新增 N2 双配置地址翻译前端：N1 保留完整 TLB/MMU，N2 保留 DA 与
+  DMW0/DMW1，生成期移除初赛不使用的 16 项全关联 TLB 取指/访存查找。
+- N2-A 的纯 DA 裁剪虽然 bitcount PASS，但因丢失 DMW cached 属性使 CPU
+  周期从 25,114 恶化到 578,819；最终 N2-B 已修复并将该实验记录为消融。
+- N2-B 官方 bitcount 为 25,114 CPU 周期，CoreMark 为 404,385 CPU 周期，
+  均与 WB-N1 逐周期一致。
+- 最终综合 LUT 为 43,953，相对 WB-N1 减少 2,836（-6.06%）。
+- 最终 route LUT 为 43,516，相对 WB-N1 减少 2,875（-6.20%）。
+- 10.000 ns post-route WNS 为 +0.134 ns，正式通过 100 MHz；WB-N1 同约束
+  为 -0.085 ns。
+- 现有布线在 9.90 ns 静态重签核通过（+0.034 ns），9.85 ns 失败
+ （-0.016 ns）；该数据只用于边界估算。
+
 ## WB-N1（工程基线，2026-07-29）
 
 - 新增 `WeBattleRawTop`，从生成源头移除上游超大 Difftest、RAT、PRF、

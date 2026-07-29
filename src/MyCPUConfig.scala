@@ -94,6 +94,17 @@ object WeBattleProfiles {
       )
     )
   )
+
+  /** Initial-round profile.
+    *
+    * The 2026 preliminary ISA excludes TLB/MMU instructions.  N2 therefore
+    * removes the full associative translation lookup from the fetch and load/
+    * store timing paths at elaboration time.  N1 remains the Linux-capable
+    * profile with the complete MMU.
+    */
+  def N2: MyCPUConfig = N1.copy(
+    translation = TranslationConfig(contestDirectMode = true)
+  )
 }
 
 final case class FrontendConfig(
@@ -178,6 +189,17 @@ final case class TLBConfig(
   val asidWidth = 10
 }
 
+/** Selects the address-translation personality.
+  *
+  * contestDirectMode is a compile-time specialization for the preliminary
+  * contest workload, which uses direct addressing and DMW windows but does not
+  * require page-table translation. Keeping this in the shared configuration
+  * makes the tradeoff explicit and preserves N1 as the full Linux/MMU build.
+  */
+final case class TranslationConfig(
+    contestDirectMode: Boolean = false
+)
+
 final case class MyCPUConfig(
     axiConfig: Axi4Config = Axi4Config(
       addressWidth = 32,
@@ -204,5 +226,6 @@ final case class MyCPUConfig(
     // Interrupt
     interrupt: InterruptConfig = InterruptConfig(),
     // TLB
-    tlbConfig: TLBConfig = TLBConfig()
+    tlbConfig: TLBConfig = TLBConfig(),
+    translation: TranslationConfig = TranslationConfig()
 )

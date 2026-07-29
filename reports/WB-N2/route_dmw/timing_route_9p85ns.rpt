@@ -1,0 +1,1833 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Wed Jul 29 10:14:32 2026
+| Host         : MM的ThinkBook16p running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -delay_type max -max_paths 20 -file D:/NSCSCC2026/WeBattle-Core/reports/WB-N2/route_dmw/timing_route_9p85ns.rpt
+| Design       : core_top
+| Device       : 7a200t-fbg676
+| Speed File   : -2  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+No report available as report_methodology has not been run prior. Run report_methodology on the current design for the summary of methodology violations.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (47)
+6. checking no_output_delay (234)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (47)
+-------------------------------
+ There are 47 input ports with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (234)
+---------------------------------
+ There are 234 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+     -0.016       -0.016                      1                35457        3.795        0.000                       0                 17656  
+
+
+Timing constraints are not met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock       Waveform(ns)         Period(ns)      Frequency(MHz)
+-----       ------------         ----------      --------------
+core_clock  {0.000 4.925}        9.850           101.523         
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+core_clock         -0.016       -0.016                      1                35457        3.795        0.000                       0                 17656  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  core_clock
+  To Clock:  core_clock
+
+Setup :            1  Failing Endpoint ,  Worst Slack       -0.016ns,  Total Violation       -0.016ns
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+PW    :            0  Failing Endpoints,  Worst Slack        3.795ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (VIOLATED) :        -0.016ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__5/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.728ns  (logic 1.639ns (16.848%)  route 8.089ns (83.152%))
+  Logic Levels:           12  (LUT3=1 LUT4=3 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.061ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.892ns = ( 13.742 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.286    10.541    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/ram_io_write_payload_mask[0]
+    SLICE_X102Y110       LUT5 (Prop_lut5_I2_O)        0.105    10.646 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem_i_123/O
+                         net (fo=4, routed)           0.857    11.502    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/pushPtr_reg[0]_rep
+    SLICE_X118Y108       LUT5 (Prop_lut5_I1_O)        0.105    11.607 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_12/O
+                         net (fo=106, routed)         0.835    12.442    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_inst_reg[28]
+    SLICE_X126Y105       LUT4 (Prop_lut4_I1_O)        0.105    12.547 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_pc[11]_i_4/O
+                         net (fo=9, routed)           0.834    13.381    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc_reg[11]_0
+    SLICE_X133Y109       LUT6 (Prop_lut6_I3_O)        0.105    13.486 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc[11]_rep__5_i_1/O
+                         net (fo=1, routed)           0.429    13.914    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_328
+    SLICE_X133Y109       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__5/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.319    13.742    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X133Y109       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__5/C
+                         clock pessimism              0.234    13.975    
+                         clock uncertainty           -0.035    13.940    
+    SLICE_X133Y109       FDRE (Setup_fdre_C_D)       -0.042    13.898    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__5
+  -------------------------------------------------------------------
+                         required time                         13.898    
+                         arrival time                         -13.914    
+  -------------------------------------------------------------------
+                         slack                                 -0.016    
+
+Slack (MET) :             0.009ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__3/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.685ns  (logic 1.639ns (16.922%)  route 8.046ns (83.078%))
+  Logic Levels:           12  (LUT3=1 LUT4=3 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.061ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.892ns = ( 13.742 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.286    10.541    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/ram_io_write_payload_mask[0]
+    SLICE_X102Y110       LUT5 (Prop_lut5_I2_O)        0.105    10.646 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem_i_123/O
+                         net (fo=4, routed)           0.857    11.502    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/pushPtr_reg[0]_rep
+    SLICE_X118Y108       LUT5 (Prop_lut5_I1_O)        0.105    11.607 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_12/O
+                         net (fo=106, routed)         0.835    12.442    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_inst_reg[28]
+    SLICE_X126Y105       LUT4 (Prop_lut4_I1_O)        0.105    12.547 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_pc[11]_i_4/O
+                         net (fo=9, routed)           0.791    13.338    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc_reg[11]_0
+    SLICE_X133Y109       LUT6 (Prop_lut6_I3_O)        0.105    13.443 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc[11]_rep__3_i_1/O
+                         net (fo=1, routed)           0.429    13.872    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_326
+    SLICE_X133Y109       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__3/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.319    13.742    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X133Y109       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__3/C
+                         clock pessimism              0.234    13.975    
+                         clock uncertainty           -0.035    13.940    
+    SLICE_X133Y109       FDRE (Setup_fdre_C_D)       -0.059    13.881    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__3
+  -------------------------------------------------------------------
+                         required time                         13.881    
+                         arrival time                         -13.872    
+  -------------------------------------------------------------------
+                         slack                                  0.009    
+
+Slack (MET) :             0.021ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[3]/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/RenamePlugin_aRAT_7_reg[3]/D
+                            (rising edge-triggered cell FDPE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.713ns  (logic 0.484ns (4.983%)  route 9.229ns (95.017%))
+  Logic Levels:           1  (LUT5=1)
+  Clock Path Skew:        -0.113ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.872ns = ( 13.722 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.218ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.418     4.218    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X121Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X121Y117       FDRE (Prop_fdre_C_Q)         0.379     4.597 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[3]/Q
+                         net (fo=97, routed)          9.229    13.827    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg_n_0_[3]
+    SLICE_X58Y105        LUT5 (Prop_lut5_I2_O)        0.105    13.932 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/RenamePlugin_aRAT_7[3]_i_1/O
+                         net (fo=1, routed)           0.000    13.932    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo_n_2703
+    SLICE_X58Y105        FDPE                                         r  u_wb/defaultClockArea_cpu/RenamePlugin_aRAT_7_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.299    13.722    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X58Y105        FDPE                                         r  u_wb/defaultClockArea_cpu/RenamePlugin_aRAT_7_reg[3]/C
+                         clock pessimism              0.234    13.955    
+                         clock uncertainty           -0.035    13.920    
+    SLICE_X58Y105        FDPE (Setup_fdpe_C_D)        0.033    13.953    u_wb/defaultClockArea_cpu/RenamePlugin_aRAT_7_reg[3]
+  -------------------------------------------------------------------
+                         required time                         13.953    
+                         arrival time                         -13.932    
+  -------------------------------------------------------------------
+                         slack                                  0.021    
+
+Slack (MET) :             0.099ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__2/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.606ns  (logic 1.639ns (17.063%)  route 7.967ns (82.938%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.885ns = ( 13.735 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.937    12.365    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X120Y116       LUT3 (Prop_lut3_I1_O)        0.105    12.470 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[0]_i_2/O
+                         net (fo=15, routed)          0.730    13.201    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[0]
+    SLICE_X123Y116       LUT6 (Prop_lut6_I0_O)        0.105    13.306 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[0]_rep__2_i_1/O
+                         net (fo=1, routed)           0.487    13.792    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_347
+    SLICE_X123Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__2/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.312    13.735    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X123Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__2/C
+                         clock pessimism              0.234    13.968    
+                         clock uncertainty           -0.035    13.933    
+    SLICE_X123Y116       FDRE (Setup_fdre_C_D)       -0.042    13.891    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__2
+  -------------------------------------------------------------------
+                         required time                         13.891    
+                         arrival time                         -13.792    
+  -------------------------------------------------------------------
+                         slack                                  0.099    
+
+Slack (MET) :             0.136ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep__2/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.566ns  (logic 1.639ns (17.133%)  route 7.927ns (82.867%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.070ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.883ns = ( 13.733 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.856    12.284    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X114Y117       LUT3 (Prop_lut3_I1_O)        0.105    12.389 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[1]_i_2/O
+                         net (fo=15, routed)          0.830    13.219    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[1]
+    SLICE_X118Y116       LUT6 (Prop_lut6_I0_O)        0.105    13.324 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[1]_rep__2_i_1/O
+                         net (fo=1, routed)           0.429    13.753    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_365
+    SLICE_X118Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep__2/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.310    13.733    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X118Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep__2/C
+                         clock pessimism              0.234    13.966    
+                         clock uncertainty           -0.035    13.931    
+    SLICE_X118Y116       FDRE (Setup_fdre_C_D)       -0.042    13.889    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep__2
+  -------------------------------------------------------------------
+                         required time                         13.889    
+                         arrival time                         -13.753    
+  -------------------------------------------------------------------
+                         slack                                  0.136    
+
+Slack (MET) :             0.155ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.551ns  (logic 1.639ns (17.160%)  route 7.912ns (82.840%))
+  Logic Levels:           12  (LUT3=1 LUT4=3 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.061ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.892ns = ( 13.742 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.286    10.541    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/ram_io_write_payload_mask[0]
+    SLICE_X102Y110       LUT5 (Prop_lut5_I2_O)        0.105    10.646 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem_i_123/O
+                         net (fo=4, routed)           0.857    11.502    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/pushPtr_reg[0]_rep
+    SLICE_X118Y108       LUT5 (Prop_lut5_I1_O)        0.105    11.607 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_12/O
+                         net (fo=106, routed)         0.835    12.442    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_inst_reg[28]
+    SLICE_X126Y105       LUT4 (Prop_lut4_I1_O)        0.105    12.547 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_pc[11]_i_4/O
+                         net (fo=9, routed)           0.688    13.235    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc_reg[11]_0
+    SLICE_X133Y109       LUT6 (Prop_lut6_I3_O)        0.105    13.340 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc[11]_rep_i_1/O
+                         net (fo=1, routed)           0.398    13.738    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_322
+    SLICE_X133Y109       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.319    13.742    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X133Y109       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep/C
+                         clock pessimism              0.234    13.975    
+                         clock uncertainty           -0.035    13.940    
+    SLICE_X133Y109       FDRE (Setup_fdre_C_D)       -0.047    13.893    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep
+  -------------------------------------------------------------------
+                         required time                         13.893    
+                         arrival time                         -13.738    
+  -------------------------------------------------------------------
+                         slack                                  0.155    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__1/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.553ns  (logic 1.639ns (17.157%)  route 7.914ns (82.843%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.069ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.884ns = ( 13.734 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.856    12.284    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X114Y117       LUT3 (Prop_lut3_I1_O)        0.105    12.389 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[1]_i_2/O
+                         net (fo=15, routed)          0.848    13.238    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[1]
+    SLICE_X120Y117       LUT6 (Prop_lut6_I0_O)        0.105    13.343 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[1]_rep__1_i_1/O
+                         net (fo=1, routed)           0.397    13.739    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_350
+    SLICE_X120Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__1/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.311    13.734    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X120Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__1/C
+                         clock pessimism              0.234    13.967    
+                         clock uncertainty           -0.035    13.932    
+    SLICE_X120Y117       FDRE (Setup_fdre_C_D)       -0.027    13.905    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__1
+  -------------------------------------------------------------------
+                         required time                         13.905    
+                         arrival time                         -13.739    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.167ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[1]_rep__2/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.537ns  (logic 1.639ns (17.185%)  route 7.898ns (82.815%))
+  Logic Levels:           12  (LUT3=1 LUT4=3 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.071ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.882ns = ( 13.732 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.286    10.541    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/ram_io_write_payload_mask[0]
+    SLICE_X102Y110       LUT5 (Prop_lut5_I2_O)        0.105    10.646 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem_i_123/O
+                         net (fo=4, routed)           0.917    11.563    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/pushPtr_reg[0]_rep
+    SLICE_X117Y112       LUT5 (Prop_lut5_I1_O)        0.105    11.668 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_wbAddr[4]_i_6/O
+                         net (fo=66, routed)          0.849    12.517    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/when_SDPRAM_l152__0
+    SLICE_X122Y117       LUT4 (Prop_lut4_I1_O)        0.105    12.622 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_1_rename_wReg[1]_i_3/O
+                         net (fo=5, routed)           0.507    13.129    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_1_rename_wReg_reg[1]_0
+    SLICE_X118Y117       LUT6 (Prop_lut6_I3_O)        0.105    13.234 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_1_rename_wReg[1]_rep__2_i_1/O
+                         net (fo=1, routed)           0.489    13.724    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_321
+    SLICE_X118Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[1]_rep__2/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.309    13.732    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X118Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[1]_rep__2/C
+                         clock pessimism              0.234    13.965    
+                         clock uncertainty           -0.035    13.930    
+    SLICE_X118Y117       FDRE (Setup_fdre_C_D)       -0.039    13.891    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[1]_rep__2
+  -------------------------------------------------------------------
+                         required time                         13.891    
+                         arrival time                         -13.724    
+  -------------------------------------------------------------------
+                         slack                                  0.167    
+
+Slack (MET) :             0.177ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__1/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.511ns  (logic 1.639ns (17.233%)  route 7.872ns (82.767%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.885ns = ( 13.735 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.937    12.365    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X120Y116       LUT3 (Prop_lut3_I1_O)        0.105    12.470 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[0]_i_2/O
+                         net (fo=15, routed)          0.726    13.197    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[0]
+    SLICE_X123Y116       LUT6 (Prop_lut6_I0_O)        0.105    13.302 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[0]_rep__1_i_1/O
+                         net (fo=1, routed)           0.396    13.697    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_346
+    SLICE_X123Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__1/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.312    13.735    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X123Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__1/C
+                         clock pessimism              0.234    13.968    
+                         clock uncertainty           -0.035    13.933    
+    SLICE_X123Y116       FDRE (Setup_fdre_C_D)       -0.059    13.874    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]_rep__1
+  -------------------------------------------------------------------
+                         required time                         13.874    
+                         arrival time                         -13.697    
+  -------------------------------------------------------------------
+                         slack                                  0.177    
+
+Slack (MET) :             0.177ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2/C
+                            (rising edge-triggered cell FDCE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_reg/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.434ns  (logic 2.432ns (25.779%)  route 7.002ns (74.221%))
+  Logic Levels:           12  (LUT3=3 LUT4=1 LUT5=2 LUT6=5 MUXF7=1)
+  Clock Path Skew:        -0.236ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.863ns = ( 13.713 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.333ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.532     4.333    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/aclk_IBUF_BUFG
+    SLICE_X76Y85         FDCE                                         r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y85         FDCE (Prop_fdce_C_Q)         0.433     4.766 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2/Q
+                         net (fo=127, routed)         1.276     6.042    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2_n_0
+    SLICE_X66Y90         LUT6 (Prop_lut6_I2_O)        0.105     6.147 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_inst[27]_i_2/O
+                         net (fo=1, routed)           0.000     6.147    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_inst[27]_i_2_n_0
+    SLICE_X66Y90         MUXF7 (Prop_muxf7_I0_O)      0.173     6.320 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_inst_reg[27]_i_1/O
+                         net (fo=36, routed)          1.027     7.347    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/_zz_when_DecoderArrayPlugin_l309_1_3[12]
+    SLICE_X65Y91         LUT5 (Prop_lut5_I4_O)        0.244     7.591 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_isErtn_i_4/O
+                         net (fo=3, routed)           0.722     8.313    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_isErtn_i_4_n_0
+    SLICE_X64Y91         LUT4 (Prop_lut4_I1_O)        0.280     8.593 f  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_operateCache_i_1/O
+                         net (fo=15, routed)          0.804     9.398    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/when_DecoderArrayPlugin_l186_129
+    SLICE_X62Y91         LUT3 (Prop_lut3_I2_O)        0.303     9.701 f  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[2]_i_3/O
+                         net (fo=10, routed)          0.527    10.228    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[2]_i_3_n_0
+    SLICE_X63Y91         LUT5 (Prop_lut5_I2_O)        0.264    10.492 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[0]_i_11/O
+                         net (fo=14, routed)          0.557    11.048    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[0]_i_11_n_0
+    SLICE_X63Y93         LUT3 (Prop_lut3_I1_O)        0.105    11.153 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_61/O
+                         net (fo=1, routed)           0.313    11.467    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_61_n_0
+    SLICE_X63Y93         LUT6 (Prop_lut6_I2_O)        0.105    11.572 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_57/O
+                         net (fo=1, routed)           0.518    12.089    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_57_n_0
+    SLICE_X63Y92         LUT6 (Prop_lut6_I2_O)        0.105    12.194 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_33/O
+                         net (fo=1, routed)           0.455    12.649    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_33_n_0
+    SLICE_X63Y93         LUT6 (Prop_lut6_I5_O)        0.105    12.754 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_11/O
+                         net (fo=6, routed)           0.687    13.441    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_DecoderArray_decoders_1_illegalEncoding7665_out
+    SLICE_X71Y100        LUT3 (Prop_lut3_I1_O)        0.105    13.546 f  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_i_2/O
+                         net (fo=1, routed)           0.116    13.662    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_i_2_n_0
+    SLICE_X71Y100        LUT6 (Prop_lut6_I2_O)        0.105    13.767 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_i_1/O
+                         net (fo=1, routed)           0.000    13.767    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO_n_483
+    SLICE_X71Y100        FDRE                                         r  u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.290    13.713    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X71Y100        FDRE                                         r  u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_reg/C
+                         clock pessimism              0.234    13.946    
+                         clock uncertainty           -0.035    13.911    
+    SLICE_X71Y100        FDRE (Setup_fdre_C_D)        0.033    13.944    u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_valid_reg
+  -------------------------------------------------------------------
+                         required time                         13.944    
+                         arrival time                         -13.767    
+  -------------------------------------------------------------------
+                         slack                                  0.177    
+
+Slack (MET) :             0.190ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/ExceptionHandlerPlugin_ESTAT_IS_2_reg[7]/C
+                            (rising edge-triggered cell FDCE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.355ns  (logic 2.001ns (21.389%)  route 7.354ns (78.611%))
+  Logic Levels:           12  (LUT3=2 LUT4=3 LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.237ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.885ns = ( 13.735 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.356ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.555     4.356    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X97Y94         FDCE                                         r  u_wb/defaultClockArea_cpu/ExceptionHandlerPlugin_ESTAT_IS_2_reg[7]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y94         FDCE (Prop_fdce_C_Q)         0.379     4.735 r  u_wb/defaultClockArea_cpu/ExceptionHandlerPlugin_ESTAT_IS_2_reg[7]/Q
+                         net (fo=3, routed)           0.810     5.544    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_3_3[7]
+    SLICE_X97Y94         LUT4 (Prop_lut4_I1_O)        0.105     5.649 r  u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_4/O
+                         net (fo=1, routed)           0.551     6.201    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_4_n_0
+    SLICE_X97Y94         LUT6 (Prop_lut6_I0_O)        0.105     6.306 r  u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_3/O
+                         net (fo=16, routed)          0.443     6.749    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/p_8623_in
+    SLICE_X101Y98        LUT3 (Prop_lut3_I2_O)        0.105     6.854 r  u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/CommitPlugin_regFlush_i_3/O
+                         net (fo=45, routed)          0.350     7.204    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/CommitPlugin_hasExcept
+    SLICE_X101Y99        LUT5 (Prop_lut5_I1_O)        0.105     7.309 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/CommitPlugin_port0Commit_uncachedProcess_fsm_stateReg[0]_i_2/O
+                         net (fo=4, routed)           0.410     7.719    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_CommitPlugin_l275
+    SLICE_X101Y106       LUT6 (Prop_lut6_I2_O)        0.105     7.824 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/debug0_wb_pc_OBUF[31]_inst_i_8/O
+                         net (fo=6, routed)           0.297     8.121    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/defaultClockArea_cpu_ROBFIFOPlugin_debug_fifoIO_pop_1_ready
+    SLICE_X100Y106       LUT5 (Prop_lut5_I0_O)        0.105     8.226 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/debug0_wb_pc_OBUF[31]_inst_i_10/O
+                         net (fo=4, routed)           0.258     8.484    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/defaultClockArea_cpu_ROBFIFOPlugin_debug_fifoIO_pop_2_ready
+    SLICE_X103Y106       LUT6 (Prop_lut6_I2_O)        0.105     8.589 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_123__0/O
+                         net (fo=44, routed)          0.495     9.085    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ROBFIFOPlugin_robInfo_popCount[0]
+    SLICE_X102Y106       LUT4 (Prop_lut4_I1_O)        0.105     9.190 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_124__0/O
+                         net (fo=14, routed)          0.928    10.117    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/ram_io_read_cmd_payload__0[1]
+    SLICE_X119Y107       LUT3 (Prop_lut3_I2_O)        0.124    10.241 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_uop_pc[31]_i_7/O
+                         net (fo=84, routed)          0.823    11.065    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_uop_pc[31]_i_7_n_0
+    SLICE_X114Y108       LUT4 (Prop_lut4_I2_O)        0.286    11.351 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_uop_pc[31]_i_6/O
+                         net (fo=83, routed)          0.969    12.319    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_3/io_read_rsp_2_uop_pc_reg[31]
+    SLICE_X122Y116       LUT6 (Prop_lut6_I5_O)        0.267    12.586 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_3/io_read_rsp_2_rename_wReg[0]_i_2/O
+                         net (fo=5, routed)           0.728    13.314    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg_reg[0]
+    SLICE_X122Y116       LUT6 (Prop_lut6_I2_O)        0.105    13.419 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[0]_i_1/O
+                         net (fo=1, routed)           0.291    13.711    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_read_rsp_2_rename_wReg[0]
+    SLICE_X122Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.312    13.735    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X122Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]/C
+                         clock pessimism              0.234    13.968    
+                         clock uncertainty           -0.035    13.933    
+    SLICE_X122Y116       FDRE (Setup_fdre_C_D)       -0.032    13.901    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[0]
+  -------------------------------------------------------------------
+                         required time                         13.901    
+                         arrival time                         -13.711    
+  -------------------------------------------------------------------
+                         slack                                  0.190    
+
+Slack (MET) :             0.212ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.476ns  (logic 1.639ns (17.297%)  route 7.837ns (82.703%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.885ns = ( 13.735 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.856    12.284    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X114Y117       LUT3 (Prop_lut3_I1_O)        0.105    12.389 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[1]_i_2/O
+                         net (fo=15, routed)          0.777    13.166    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[1]
+    SLICE_X121Y116       LUT6 (Prop_lut6_I0_O)        0.105    13.271 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[1]_i_1/O
+                         net (fo=1, routed)           0.391    13.662    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_read_rsp_2_rename_wReg[1]
+    SLICE_X122Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.312    13.735    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X122Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]/C
+                         clock pessimism              0.234    13.968    
+                         clock uncertainty           -0.035    13.933    
+    SLICE_X122Y116       FDRE (Setup_fdre_C_D)       -0.059    13.874    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]
+  -------------------------------------------------------------------
+                         required time                         13.874    
+                         arrival time                         -13.662    
+  -------------------------------------------------------------------
+                         slack                                  0.212    
+
+Slack (MET) :             0.213ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[0]/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.518ns  (logic 1.639ns (17.220%)  route 7.879ns (82.780%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.069ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.884ns = ( 13.734 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.937    12.365    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X120Y116       LUT3 (Prop_lut3_I1_O)        0.105    12.470 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[0]_i_2/O
+                         net (fo=15, routed)          0.843    13.313    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[0]
+    SLICE_X124Y118       LUT6 (Prop_lut6_I0_O)        0.105    13.418 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_1_rename_wReg[0]_i_1/O
+                         net (fo=1, routed)           0.286    13.704    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_read_rsp_1_rename_wReg[0]
+    SLICE_X124Y118       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.311    13.734    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X124Y118       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[0]/C
+                         clock pessimism              0.234    13.967    
+                         clock uncertainty           -0.035    13.932    
+    SLICE_X124Y118       FDRE (Setup_fdre_C_D)       -0.015    13.917    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_1_rename_wReg_reg[0]
+  -------------------------------------------------------------------
+                         required time                         13.917    
+                         arrival time                         -13.704    
+  -------------------------------------------------------------------
+                         slack                                  0.213    
+
+Slack (MET) :             0.217ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__2/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.517ns  (logic 1.639ns (17.223%)  route 7.878ns (82.777%))
+  Logic Levels:           12  (LUT3=1 LUT4=3 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.069ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.884ns = ( 13.734 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.286    10.541    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/ram_io_write_payload_mask[0]
+    SLICE_X102Y110       LUT5 (Prop_lut5_I2_O)        0.105    10.646 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem_i_123/O
+                         net (fo=4, routed)           0.917    11.563    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/pushPtr_reg[0]_rep
+    SLICE_X117Y112       LUT5 (Prop_lut5_I1_O)        0.105    11.668 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_wbAddr[4]_i_6/O
+                         net (fo=66, routed)          0.816    12.484    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/when_SDPRAM_l152__0
+    SLICE_X121Y116       LUT4 (Prop_lut4_I1_O)        0.105    12.589 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_2_rename_wReg[1]_i_3/O
+                         net (fo=5, routed)           0.580    13.169    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg_reg[1]_0
+    SLICE_X120Y117       LUT6 (Prop_lut6_I3_O)        0.105    13.274 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[1]_rep__2_i_1/O
+                         net (fo=1, routed)           0.429    13.703    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_351
+    SLICE_X120Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__2/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.311    13.734    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X120Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__2/C
+                         clock pessimism              0.234    13.967    
+                         clock uncertainty           -0.035    13.932    
+    SLICE_X120Y117       FDRE (Setup_fdre_C_D)       -0.012    13.920    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep__2
+  -------------------------------------------------------------------
+                         required time                         13.920    
+                         arrival time                         -13.703    
+  -------------------------------------------------------------------
+                         slack                                  0.217    
+
+Slack (MET) :             0.232ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[0]/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.467ns  (logic 1.639ns (17.312%)  route 7.828ns (82.688%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.885ns = ( 13.735 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.937    12.365    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X120Y116       LUT3 (Prop_lut3_I1_O)        0.105    12.470 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[0]_i_2/O
+                         net (fo=15, routed)          0.675    13.145    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[0]
+    SLICE_X125Y117       LUT6 (Prop_lut6_I0_O)        0.105    13.250 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[0]_i_1/O
+                         net (fo=1, routed)           0.403    13.654    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_read_rsp_0_rename_wReg[0]
+    SLICE_X126Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.312    13.735    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X126Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[0]/C
+                         clock pessimism              0.234    13.968    
+                         clock uncertainty           -0.035    13.933    
+    SLICE_X126Y117       FDRE (Setup_fdre_C_D)       -0.047    13.886    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[0]
+  -------------------------------------------------------------------
+                         required time                         13.886    
+                         arrival time                         -13.654    
+  -------------------------------------------------------------------
+                         slack                                  0.232    
+
+Slack (MET) :             0.236ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2/C
+                            (rising edge-triggered cell FDCE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code_reg[3]/D
+                            (rising edge-triggered cell FDSE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.412ns  (logic 2.327ns (24.724%)  route 7.085ns (75.276%))
+  Logic Levels:           11  (LUT3=2 LUT4=1 LUT5=2 LUT6=5 MUXF7=1)
+  Clock Path Skew:        -0.239ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.860ns = ( 13.710 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.333ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.532     4.333    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/aclk_IBUF_BUFG
+    SLICE_X76Y85         FDCE                                         r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y85         FDCE (Prop_fdce_C_Q)         0.433     4.766 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2/Q
+                         net (fo=127, routed)         1.276     6.042    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/popPtr_reg[1]_rep__2_n_0
+    SLICE_X66Y90         LUT6 (Prop_lut6_I2_O)        0.105     6.147 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_inst[27]_i_2/O
+                         net (fo=1, routed)           0.000     6.147    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_inst[27]_i_2_n_0
+    SLICE_X66Y90         MUXF7 (Prop_muxf7_I0_O)      0.173     6.320 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_inst_reg[27]_i_1/O
+                         net (fo=36, routed)          1.027     7.347    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/_zz_when_DecoderArrayPlugin_l309_1_3[12]
+    SLICE_X65Y91         LUT5 (Prop_lut5_I4_O)        0.244     7.591 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_isErtn_i_4/O
+                         net (fo=3, routed)           0.722     8.313    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_isErtn_i_4_n_0
+    SLICE_X64Y91         LUT4 (Prop_lut4_I1_O)        0.280     8.593 f  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_operateCache_i_1/O
+                         net (fo=15, routed)          0.804     9.398    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/when_DecoderArrayPlugin_l186_129
+    SLICE_X62Y91         LUT3 (Prop_lut3_I2_O)        0.303     9.701 f  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[2]_i_3/O
+                         net (fo=10, routed)          0.527    10.228    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[2]_i_3_n_0
+    SLICE_X63Y91         LUT5 (Prop_lut5_I2_O)        0.264    10.492 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[0]_i_11/O
+                         net (fo=14, routed)          0.557    11.048    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_fuType[0]_i_11_n_0
+    SLICE_X63Y93         LUT3 (Prop_lut3_I1_O)        0.105    11.153 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_61/O
+                         net (fo=1, routed)           0.313    11.467    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_61_n_0
+    SLICE_X63Y93         LUT6 (Prop_lut6_I2_O)        0.105    11.572 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_57/O
+                         net (fo=1, routed)           0.518    12.089    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_57_n_0
+    SLICE_X63Y92         LUT6 (Prop_lut6_I2_O)        0.105    12.194 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_33/O
+                         net (fo=1, routed)           0.455    12.649    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_33_n_0
+    SLICE_X63Y93         LUT6 (Prop_lut6_I5_O)        0.105    12.754 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_11/O
+                         net (fo=6, routed)           0.886    13.639    u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_DecoderArray_decoders_1_illegalEncoding7665_out
+    SLICE_X74Y101        LUT6 (Prop_lut6_I2_O)        0.105    13.744 r  u_wb/defaultClockArea_cpu/FetchBufferPlugin_bufferFIFO/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[3]_i_1/O
+                         net (fo=1, routed)           0.000    13.744    u_wb/defaultClockArea_cpu/ID_DecoderArray_decoders_1_uop_except_payload_code[3]
+    SLICE_X74Y101        FDSE                                         r  u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.287    13.710    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X74Y101        FDSE                                         r  u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code_reg[3]/C
+                         clock pessimism              0.234    13.943    
+                         clock uncertainty           -0.035    13.908    
+    SLICE_X74Y101        FDSE (Setup_fdse_C_D)        0.072    13.980    u_wb/defaultClockArea_cpu/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code_reg[3]
+  -------------------------------------------------------------------
+                         required time                         13.980    
+                         arrival time                         -13.744    
+  -------------------------------------------------------------------
+                         slack                                  0.236    
+
+Slack (MET) :             0.237ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload_reg[1]/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.560ns  (logic 1.827ns (19.112%)  route 7.733ns (80.888%))
+  Logic Levels:           12  (LUT2=1 LUT3=1 LUT4=1 LUT5=4 LUT6=5)
+  Clock Path Skew:        -0.090ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.863ns = ( 13.713 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.593     9.503    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/E[0]
+    SLICE_X87Y109        LUT5 (Prop_lut5_I4_O)        0.105     9.608 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/popPtr[1]_i_5/O
+                         net (fo=12, routed)          0.861    10.469    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/popPtr[1]_i_5_n_0
+    SLICE_X88Y106        LUT6 (Prop_lut6_I3_O)        0.105    10.574 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/isRisingOccupancy_i_5/O
+                         net (fo=15, routed)          0.487    11.061    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/isRisingOccupancy_i_5_n_0
+    SLICE_X89Y103        LUT4 (Prop_lut4_I2_O)        0.105    11.166 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/popPtr[3]_i_2/O
+                         net (fo=5, routed)           0.368    11.534    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/popPtr[3]_i_2_n_0
+    SLICE_X89Y103        LUT2 (Prop_lut2_I1_O)        0.124    11.658 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/popPtr[2]_i_1__1/O
+                         net (fo=13, routed)          0.978    12.636    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/popPtr[2]_i_1__1_n_0
+    SLICE_X87Y103        LUT6 (Prop_lut6_I5_O)        0.274    12.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload[1]_i_2/O
+                         net (fo=1, routed)           0.731    13.641    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload[1]_i_2_n_0
+    SLICE_X88Y101        LUT5 (Prop_lut5_I2_O)        0.105    13.746 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload[1]_i_1/O
+                         net (fo=1, routed)           0.000    13.746    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload[1]_i_1_n_0
+    SLICE_X88Y101        FDRE                                         r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload_reg[1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.290    13.713    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/aclk_IBUF_BUFG
+    SLICE_X88Y101        FDRE                                         r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload_reg[1]/C
+                         clock pessimism              0.234    13.946    
+                         clock uncertainty           -0.035    13.911    
+    SLICE_X88Y101        FDRE (Setup_fdre_C_D)        0.072    13.983    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_pop_0_payload_reg[1]
+  -------------------------------------------------------------------
+                         required time                         13.983    
+                         arrival time                         -13.746    
+  -------------------------------------------------------------------
+                         slack                                  0.237    
+
+Slack (MET) :             0.243ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.454ns  (logic 1.639ns (17.336%)  route 7.815ns (82.664%))
+  Logic Levels:           12  (LUT3=2 LUT4=2 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.070ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.883ns = ( 13.733 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.460    10.715    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ram_io_write_payload_mask[0]
+    SLICE_X107Y111       LUT5 (Prop_lut5_I2_O)        0.105    10.820 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_122/O
+                         net (fo=2, routed)           0.503    11.323    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/_zz_io_write_valid_21_in
+    SLICE_X109Y110       LUT5 (Prop_lut5_I1_O)        0.105    11.428 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_8/O
+                         net (fo=113, routed)         0.856    12.284    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_SDPRAM_l152__0
+    SLICE_X114Y117       LUT3 (Prop_lut3_I1_O)        0.105    12.389 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[1]_i_2/O
+                         net (fo=15, routed)          0.713    13.102    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/rams_2_io_read_rsp_rename_wReg[1]
+    SLICE_X118Y116       LUT6 (Prop_lut6_I0_O)        0.105    13.207 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_rename_wReg[1]_rep_i_1/O
+                         net (fo=1, routed)           0.434    13.641    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_362
+    SLICE_X118Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.310    13.733    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X118Y116       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep/C
+                         clock pessimism              0.234    13.966    
+                         clock uncertainty           -0.035    13.931    
+    SLICE_X118Y116       FDRE (Setup_fdre_C_D)       -0.047    13.884    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_rename_wReg_reg[1]_rep
+  -------------------------------------------------------------------
+                         required time                         13.884    
+                         arrival time                         -13.641    
+  -------------------------------------------------------------------
+                         slack                                  0.243    
+
+Slack (MET) :             0.261ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/ExceptionHandlerPlugin_ESTAT_IS_2_reg[7]/C
+                            (rising edge-triggered cell FDCE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.301ns  (logic 2.001ns (21.514%)  route 7.300ns (78.486%))
+  Logic Levels:           12  (LUT3=2 LUT4=3 LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.238ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.884ns = ( 13.734 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.356ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.555     4.356    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X97Y94         FDCE                                         r  u_wb/defaultClockArea_cpu/ExceptionHandlerPlugin_ESTAT_IS_2_reg[7]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y94         FDCE (Prop_fdce_C_Q)         0.379     4.735 r  u_wb/defaultClockArea_cpu/ExceptionHandlerPlugin_ESTAT_IS_2_reg[7]/Q
+                         net (fo=3, routed)           0.810     5.544    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_3_3[7]
+    SLICE_X97Y94         LUT4 (Prop_lut4_I1_O)        0.105     5.649 r  u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_4/O
+                         net (fo=1, routed)           0.551     6.201    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_4_n_0
+    SLICE_X97Y94         LUT6 (Prop_lut6_I0_O)        0.105     6.306 r  u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/ExceptionHandlerPlugin_ESTAT_ECODE[5]_i_3/O
+                         net (fo=16, routed)          0.443     6.749    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/p_8623_in
+    SLICE_X101Y98        LUT3 (Prop_lut3_I2_O)        0.105     6.854 r  u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/CommitPlugin_regFlush_i_3/O
+                         net (fo=45, routed)          0.350     7.204    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/CommitPlugin_hasExcept
+    SLICE_X101Y99        LUT5 (Prop_lut5_I1_O)        0.105     7.309 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/CommitPlugin_port0Commit_uncachedProcess_fsm_stateReg[0]_i_2/O
+                         net (fo=4, routed)           0.410     7.719    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/when_CommitPlugin_l275
+    SLICE_X101Y106       LUT6 (Prop_lut6_I2_O)        0.105     7.824 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/debug0_wb_pc_OBUF[31]_inst_i_8/O
+                         net (fo=6, routed)           0.297     8.121    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/defaultClockArea_cpu_ROBFIFOPlugin_debug_fifoIO_pop_1_ready
+    SLICE_X100Y106       LUT5 (Prop_lut5_I0_O)        0.105     8.226 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/debug0_wb_pc_OBUF[31]_inst_i_10/O
+                         net (fo=4, routed)           0.258     8.484    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/defaultClockArea_cpu_ROBFIFOPlugin_debug_fifoIO_pop_2_ready
+    SLICE_X103Y106       LUT6 (Prop_lut6_I2_O)        0.105     8.589 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_123__0/O
+                         net (fo=44, routed)          0.495     9.085    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/ROBFIFOPlugin_robInfo_popCount[0]
+    SLICE_X102Y106       LUT4 (Prop_lut4_I1_O)        0.105     9.190 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/mem_i_124__0/O
+                         net (fo=14, routed)          0.928    10.117    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/ram_io_read_cmd_payload__0[1]
+    SLICE_X119Y107       LUT3 (Prop_lut3_I2_O)        0.124    10.241 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_uop_pc[31]_i_7/O
+                         net (fo=84, routed)          0.823    11.065    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_uop_pc[31]_i_7_n_0
+    SLICE_X114Y108       LUT4 (Prop_lut4_I2_O)        0.286    11.351 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_uop_pc[31]_i_6/O
+                         net (fo=83, routed)          0.947    12.298    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_3/io_read_rsp_2_uop_pc_reg[31]
+    SLICE_X119Y116       LUT6 (Prop_lut6_I5_O)        0.267    12.565 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_3/io_read_rsp_2_rename_wReg[1]_i_2/O
+                         net (fo=5, routed)           0.585    13.149    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg_reg[1]
+    SLICE_X120Y117       LUT6 (Prop_lut6_I2_O)        0.105    13.254 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_2_rename_wReg[1]_rep_i_1/O
+                         net (fo=1, routed)           0.402    13.656    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_348
+    SLICE_X120Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.311    13.734    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X120Y117       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep/C
+                         clock pessimism              0.234    13.967    
+                         clock uncertainty           -0.035    13.932    
+    SLICE_X120Y117       FDRE (Setup_fdre_C_D)       -0.015    13.917    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_2_rename_wReg_reg[1]_rep
+  -------------------------------------------------------------------
+                         required time                         13.917    
+                         arrival time                         -13.656    
+  -------------------------------------------------------------------
+                         slack                                  0.261    
+
+Slack (MET) :             0.265ns  (required time - arrival time)
+  Source:                 u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Destination:            u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__6/D
+                            (rising edge-triggered cell FDRE clocked by core_clock  {rise@0.000ns fall@4.925ns period=9.850ns})
+  Path Group:             core_clock
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            9.850ns  (core_clock rise@9.850ns - core_clock rise@0.000ns)
+  Data Path Delay:        9.441ns  (logic 1.639ns (17.361%)  route 7.802ns (82.639%))
+  Logic Levels:           12  (LUT3=1 LUT4=3 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.891ns = ( 13.741 - 9.850 ) 
+    Source Clock Delay      (SCD):    4.186ns
+    Clock Pessimism Removal (CPR):    0.234ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core_clock rise edge)
+                                                      0.000     0.000 r  
+    L22                                               0.000     0.000 r  aclk (IN)
+                         net (fo=0)                   0.000     0.000    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.893     0.893 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.827     2.720    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.081     2.801 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.386     4.186    u_wb/defaultClockArea_cpu/aclk_IBUF_BUFG
+    SLICE_X69Y127        FDRE                                         r  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y127        FDRE (Prop_fdre_C_Q)         0.379     4.565 f  u_wb/defaultClockArea_cpu/RENAME_to_DISPATCH_DECODE_PACKET_2_valid_reg/Q
+                         net (fo=3, routed)           0.793     5.359    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_valid
+    SLICE_X68Y127        LUT6 (Prop_lut6_I1_O)        0.105     5.464 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/MemIssueQueuePlugin_queue_2_payload_uop_cacheOp[1]_i_9/O
+                         net (fo=16, routed)          0.341     5.805    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/RENAME_to_DISPATCH_DECODE_PACKET_2_payload_except_valid_reg_0
+    SLICE_X69Y126        LUT3 (Prop_lut3_I1_O)        0.105     5.910 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35/O
+                         net (fo=1, routed)           0.344     6.254    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_35_n_0
+    SLICE_X71Y127        LUT5 (Prop_lut5_I2_O)        0.105     6.359 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23/O
+                         net (fo=1, routed)           0.479     6.838    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_23_n_0
+    SLICE_X77Y125        LUT6 (Prop_lut6_I0_O)        0.105     6.943 f  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10/O
+                         net (fo=1, routed)           0.530     7.473    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_10_n_0
+    SLICE_X77Y124        LUT5 (Prop_lut5_I1_O)        0.105     7.578 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/IntIssueQueuePlugin_queue_0_payload_robIdx[4]_i_3/O
+                         net (fo=532, routed)         1.228     8.806    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/DISPATCH_arbitration_isValid_reg
+    SLICE_X89Y111        LUT6 (Prop_lut6_I0_O)        0.105     8.911 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/ID_to_RENAME_DECODE_PACKET_1_payload_except_payload_code[5]_i_2/O
+                         net (fo=518, routed)         0.871     9.782    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_2__0[0]
+    SLICE_X100Y109       LUT4 (Prop_lut4_I2_O)        0.105     9.887 f  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/pushPtr[1]_i_4__0/O
+                         net (fo=3, routed)           0.264    10.150    u_wb/defaultClockArea_cpu/RenamePlugin_freeList/io_read_rsp_0_uop_pc[31]_i_9
+    SLICE_X103Y110       LUT4 (Prop_lut4_I3_O)        0.105    10.255 r  u_wb/defaultClockArea_cpu/RenamePlugin_freeList/mem_i_148/O
+                         net (fo=6, routed)           0.286    10.541    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/ram_io_write_payload_mask[0]
+    SLICE_X102Y110       LUT5 (Prop_lut5_I2_O)        0.105    10.646 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem_i_123/O
+                         net (fo=4, routed)           0.857    11.502    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/pushPtr_reg[0]_rep
+    SLICE_X118Y108       LUT5 (Prop_lut5_I1_O)        0.105    11.607 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc[31]_i_12/O
+                         net (fo=106, routed)         0.835    12.442    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_inst_reg[28]
+    SLICE_X126Y105       LUT4 (Prop_lut4_I1_O)        0.105    12.547 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/io_read_rsp_0_uop_pc[11]_i_4/O
+                         net (fo=9, routed)           0.689    13.236    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc_reg[11]_0
+    SLICE_X133Y109       LUT6 (Prop_lut6_I3_O)        0.105    13.341 r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2/io_read_rsp_0_uop_pc[11]_rep__6_i_1/O
+                         net (fo=1, routed)           0.286    13.627    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_2_n_329
+    SLICE_X133Y110       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__6/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core_clock rise edge)
+                                                      9.850     9.850 r  
+    L22                                               0.000     9.850 r  aclk (IN)
+                         net (fo=0)                   0.000     9.850    aclk
+    L22                  IBUF (Prop_ibuf_I_O)         0.762    10.612 r  aclk_IBUF_inst/O
+                         net (fo=1, routed)           1.734    12.346    aclk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.077    12.423 r  aclk_IBUF_BUFG_inst/O
+                         net (fo=17658, routed)       1.318    13.741    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/aclk_IBUF_BUFG
+    SLICE_X133Y110       FDRE                                         r  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__6/C
+                         clock pessimism              0.234    13.974    
+                         clock uncertainty           -0.035    13.939    
+    SLICE_X133Y110       FDRE (Setup_fdre_C_D)       -0.047    13.892    u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/io_read_rsp_0_uop_pc_reg[11]_rep__6
+  -------------------------------------------------------------------
+                         required time                         13.892    
+                         arrival time                         -13.627    
+  -------------------------------------------------------------------
+                         slack                                  0.265    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         core_clock
+Waveform(ns):       { 0.000 4.925 }
+Period(ns):         9.850
+Sources:            { aclk }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location        Pin
+Min Period        n/a     DSP48E1/CLK         n/a            3.109         9.850       6.741      DSP48_X2Y59     core_top/wb_raw_top/MyCPUCore/multiplier/<hidden>/<hidden>/<hidden>
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X1Y17    u_wb/defaultClockArea_axiBuffer/fifo/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X1Y15    u_wb/defaultClockArea_axiBuffer/fifo/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_1/CLKARDCLK
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB18_X1Y32    u_wb/defaultClockArea_axiBuffer/fifo/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_2/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X2Y16    u_wb/defaultClockArea_cpu/DCachePlugin_dataRAMs_0/mem/xpm_memory_base_inst/gen_wr_a.gen_byte_narrow.for_mem_cols[1].mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X2Y17    u_wb/defaultClockArea_cpu/DCachePlugin_dataRAMs_1/mem/xpm_memory_base_inst/gen_wr_a.gen_byte_narrow.for_mem_cols[1].mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X2Y18    u_wb/defaultClockArea_cpu/DCachePlugin_infoRAM/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.472         9.850       7.378      RAMB36_X2Y18    u_wb/defaultClockArea_cpu/DCachePlugin_infoRAM/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKBWRCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X5Y14    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.472         9.850       7.378      RAMB36_X5Y14    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKBWRCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X6Y15    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_1/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.472         9.850       7.378      RAMB36_X6Y15    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_1/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKBWRCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X5Y16    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_2/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.472         9.850       7.378      RAMB36_X5Y16    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_2/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKBWRCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB36_X5Y15    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_3/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.472         9.850       7.378      RAMB36_X5Y15    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_btb/rams_3/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKBWRCLK
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB18_X4Y31    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB18_X5Y34    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_1/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB18_X4Y33    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_2/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.472         9.850       7.378      RAMB18_X4Y30    u_wb/defaultClockArea_cpu/GlobalPredictorBTBPlugin_predictor/pht/rams_3/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg/CLKARDCLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA_D1/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA_D1/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB_D1/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB_D1/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC_D1/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC_D1/CLK
+Low Pulse Width   Slow    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD/CLK
+Low Pulse Width   Fast    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD/CLK
+Low Pulse Width   Slow    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD_D1/CLK
+Low Pulse Width   Fast    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD_D1/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA_D1/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA_D1/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA_D1/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMA_D1/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB_D1/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMB_D1/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC_D1/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMC_D1/CLK
+High Pulse Width  Slow    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD/CLK
+High Pulse Width  Fast    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD/CLK
+High Pulse Width  Slow    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD_D1/CLK
+High Pulse Width  Fast    RAMS32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y103  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_0_5/RAMD_D1/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA_D1/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.130         4.925       3.795      SLICE_X120Y108  u_wb/defaultClockArea_cpu/ROBFIFOPlugin_robInfo/ram/rams_0/mem/xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_7_102_107/RAMA_D1/CLK
+
+
+

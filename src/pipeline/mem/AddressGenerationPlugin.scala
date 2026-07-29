@@ -83,18 +83,23 @@ class AddressGenerationPlugin(config: MyCPUConfig) extends Plugin[MemPipeline] {
 
       // translate
       val mmu = pipeline.globalService(classOf[MMUPlugin])
-      val directTranslateResult =
-        mmu.directTranslate(virtAddr, Mux(isStore, MemOperationType.STORE, MemOperationType.LOAD))
-      val tlbTranslateResult = mmu.tlbTranslate(virtAddr, Mux(isStore, MemOperationType.STORE, MemOperationType.LOAD))
       val savedCSR = TranslateCSRBundle()
       savedCSR.CRMD_DA := excHandler.CRMD_DA
       savedCSR.CRMD_PG := excHandler.CRMD_PG
       savedCSR.CRMD_DATF := excHandler.CRMD_DATF
       savedCSR.CRMD_DATM := excHandler.CRMD_DATM
 
-      insert(DIRECT_TRANSLATE_RESULT) := directTranslateResult.resultBundle
-      insert(TLB_TRANSLATE_RESULT) := tlbTranslateResult.resultBundle
       insert(TRANSLATE_SAVED_CSR) := savedCSR
+      // Preserve the two lightweight DMW windows used by the contest runtime.
+      // The contest profile removes only the expensive associative TLB lookup.
+      val directTranslateResult =
+        mmu.directTranslate(virtAddr, Mux(isStore, MemOperationType.STORE, MemOperationType.LOAD))
+      insert(DIRECT_TRANSLATE_RESULT) := directTranslateResult.resultBundle
+      if (!config.translation.contestDirectMode) {
+        val tlbTranslateResult =
+          mmu.tlbTranslate(virtAddr, Mux(isStore, MemOperationType.STORE, MemOperationType.LOAD))
+        insert(TLB_TRANSLATE_RESULT) := tlbTranslateResult.resultBundle
+      }
     }
 
     pipeline.MEM1 plug new Area {
@@ -111,23 +116,41 @@ class AddressGenerationPlugin(config: MyCPUConfig) extends Plugin[MemPipeline] {
       val isStore = uop.isStore
       val physAddr = insert(MEMORY_ADDRESS_PHYSICAL)
 
-      val MMU = pipeline.globalService(classOf[MMUPlugin])
-      val translateResult = MMU.translate(
-        virtAddr,
-        Mux(isStore, MemOperationType.STORE, MemOperationType.LOAD),
-        input(DIRECT_TRANSLATE_RESULT),
-        input(TLB_TRANSLATE_RESULT),
-        input(TRANSLATE_SAVED_CSR)
-      )
-      insert(ADDRESS_CACHED) := translateResult.resultBundle.cached
-      physAddr := translateResult.resultBundle.physAddr
-      insert(IS_TLB_REFILL) := translateResult.resultExceptionBundle.raiseTLBR
+      if (config.translation.contestDirectMode) {
+        val savedCSR = input(TRANSLATE_SAVED_CSR)
+        val directResult = input(DIRECT_TRANSLATE_RESULT)
+        val mappedMode = !savedCSR.CRMD_DA && savedCSR.CRMD_PG
+        val directHit = mappedMode && directResult.valid
+        val missingMapping = mappedMode && !directResult.valid
 
-      raisePIL := translateResult.resultExceptionBundle.raisePIL
-      raisePIS := translateResult.resultExceptionBundle.raisePIS
-      raisePME := translateResult.resultExceptionBundle.raisePME
-      raisePPI := translateResult.resultExceptionBundle.raisePPI
-      raiseTLBR := translateResult.resultExceptionBundle.raiseTLBR
+        insert(ADDRESS_CACHED) :=
+          Mux(directHit, directResult.payload.cached, savedCSR.CRMD_DATM(0))
+        physAddr := Mux(directHit, directResult.payload.physAddr, virtAddr)
+        insert(IS_TLB_REFILL) := missingMapping
+        raisePIL := False
+        raisePIS := False
+        raisePME := False
+        raisePPI := False
+        raiseTLBR := missingMapping
+      } else {
+        val MMU = pipeline.globalService(classOf[MMUPlugin])
+        val translateResult = MMU.translate(
+          virtAddr,
+          Mux(isStore, MemOperationType.STORE, MemOperationType.LOAD),
+          input(DIRECT_TRANSLATE_RESULT),
+          input(TLB_TRANSLATE_RESULT),
+          input(TRANSLATE_SAVED_CSR)
+        )
+        insert(ADDRESS_CACHED) := translateResult.resultBundle.cached
+        physAddr := translateResult.resultBundle.physAddr
+        insert(IS_TLB_REFILL) := translateResult.resultExceptionBundle.raiseTLBR
+
+        raisePIL := translateResult.resultExceptionBundle.raisePIL
+        raisePIS := translateResult.resultExceptionBundle.raisePIS
+        raisePME := translateResult.resultExceptionBundle.raisePME
+        raisePPI := translateResult.resultExceptionBundle.raisePPI
+        raiseTLBR := translateResult.resultExceptionBundle.raiseTLBR
+      }
     }
   }
 }

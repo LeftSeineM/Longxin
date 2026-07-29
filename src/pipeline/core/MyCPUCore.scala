@@ -29,7 +29,7 @@ class MyCPUCore(config: MyCPUConfig) extends Component with MultiPipeline {
       new FetchBufferPlugin(config),
       new ICachePlugin(config),
       new ExceptionMuxPlugin[FetchPipeline](stages.size - 1),
-      new InstAddrTranslatePlugin(),
+      new InstAddrTranslatePlugin(config),
       new GlobalPredictorBTBPlugin(config.frontend),
       new ReturnAddressStackPlugin(config.frontend)
     ).filter(_ != null)

@@ -15,8 +15,10 @@ WeBattle-Core 是面向 NSCSCC 2026 团体赛开发的 LA32R 乱序多发射处�
 - `WB-N0`：上游微架构 + 2026 `CPUCFG` 兼容 + 官方 SoC 包装，作为冻结基线。
 - `WB-N1`：2026 原生精简顶层、完整性能事件计数、可配置bank-safe gshare、
   PHT冷启动策略，是第一版独立维护的派生配置。
+- `WB-N2`：初赛专用 DA/DMW 快速翻译配置，保留完整直接映射语义并在生成期
+  裁掉未使用的全关联 TLB 查找；Linux/MMU 配置继续由 N1 保留。
 
-## WB-N1 架构
+## WB-N1 / WB-N2 架构
 
 - LA32R，乱序执行、顺序提交
 - 4 路取指、3 路译码、最多 5 个执行通道、3 路退休
@@ -31,6 +33,7 @@ WeBattle-Core 是面向 NSCSCC 2026 团体赛开发的 LA32R 乱序多发射处�
 
 ```powershell
 java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N1"
+java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N2"
 ```
 
 仿真观测版生成结果位于 `build/wb-n1/wb_raw_top.v`。提交综合版使用
@@ -40,7 +43,9 @@ java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N1"
 `integration/core_top.sv` 与上游 `xilinx_ip` 中使用的存储器封装。
 
 WB-N1 的实测工程报告见 [docs/WB-N1_REPORT.md](docs/WB-N1_REPORT.md)。
-当前已通过最终 bitcount、CoreMark 和 98.04 MHz 布局布线时序；完整
+WB-N2 的关键创新、消融和 PPA 实测见
+[docs/WB-N2_INNOVATION.md](docs/WB-N2_INNOVATION.md)。
+N2 当前已通过 bitcount、CoreMark 和 100 MHz 布局布线时序；完整
 58/58、20/20 与上板回归仍是进入提交候选版前的硬门槛。
 
 ## 合规原则

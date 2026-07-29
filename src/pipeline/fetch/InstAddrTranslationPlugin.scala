@@ -14,7 +14,7 @@ import spinal.lib.bus.amba4.axi._
 import spinal.lib.fsm._
 import NOP.pipeline.priviledge._
 
-class InstAddrTranslatePlugin() extends Plugin[FetchPipeline] {
+class InstAddrTranslatePlugin(config: MyCPUConfig) extends Plugin[FetchPipeline] {
   val PIF = Bool()
   val PPI = Bool()
   val ADEF = Bool()
@@ -44,17 +44,24 @@ class InstAddrTranslatePlugin() extends Plugin[FetchPipeline] {
       badVaddr := input(PC)
       ADEF := (input(PC)(0) || input(PC)(1))
 
-      val directTranslateResult = mmu.directTranslate(virtPC, MemOperationType.FETCH)
-      val tlbTranslateResult = mmu.tlbTranslate(virtPC, MemOperationType.FETCH)
       val savedCSR = TranslateCSRBundle()
       savedCSR.CRMD_DA := excHandler.CRMD_DA
       savedCSR.CRMD_PG := excHandler.CRMD_PG
       savedCSR.CRMD_DATF := excHandler.CRMD_DATF
       savedCSR.CRMD_DATM := excHandler.CRMD_DATM
 
-      insert(DIRECT_TRANSLATE_RESULT) := directTranslateResult.resultBundle
-      insert(TLB_TRANSLATE_RESULT) := tlbTranslateResult.resultBundle
       insert(TRANSLATE_SAVED_CSR) := savedCSR
+
+      // DMW0/1 are two cheap, architecturally visible direct-map windows and
+      // are also used by the official performance runtime after it enables PG.
+      // Keep them in both profiles; only the 16-entry associative TLB lookup is
+      // removed from the contest profile.
+      val directTranslateResult = mmu.directTranslate(virtPC, MemOperationType.FETCH)
+      insert(DIRECT_TRANSLATE_RESULT) := directTranslateResult.resultBundle
+      if (!config.translation.contestDirectMode) {
+        val tlbTranslateResult = mmu.tlbTranslate(virtPC, MemOperationType.FETCH)
+        insert(TLB_TRANSLATE_RESULT) := tlbTranslateResult.resultBundle
+      }
     }
 
     pipeline.IF2 plug new Area {
@@ -68,20 +75,39 @@ class InstAddrTranslatePlugin() extends Plugin[FetchPipeline] {
       val pcCached = insert(ADDRESS_CACHED)
       val tlbRefill = insert(IS_TLB_REFILL)
 
-      val translateResult = mmu.translate(
-        virtPC,
-        MemOperationType.FETCH,
-        input(DIRECT_TRANSLATE_RESULT),
-        input(TLB_TRANSLATE_RESULT),
-        input(TRANSLATE_SAVED_CSR)
-      )
-      PIF := translateResult.resultExceptionBundle.raisePIF
-      PPI := translateResult.resultExceptionBundle.raisePPI
-      TLBR := translateResult.resultExceptionBundle.raiseTLBR
+      if (config.translation.contestDirectMode) {
+        // The preliminary workload uses DA or one of the two DMW windows.
+        // Eliminating the otherwise unused 16-entry associative lookup removes
+        // PC -> TLB compare/select from the IF1 critical path.
+        val savedCSR = input(TRANSLATE_SAVED_CSR)
+        val directResult = input(DIRECT_TRANSLATE_RESULT)
+        val mappedMode = !savedCSR.CRMD_DA && savedCSR.CRMD_PG
+        val directHit = mappedMode && directResult.valid
 
-      physPC := translateResult.resultPhysAddr
-      pcCached := translateResult.resultCached
-      tlbRefill := TLBR
+        PIF := False
+        PPI := False
+        // A mapped address outside DMW0/1 is deliberately unsupported in the
+        // contest profile. Raise TLBR instead of silently using a wrong PA.
+        TLBR := mappedMode && !directResult.valid
+        physPC := Mux(directHit, directResult.payload.physAddr, virtPC)
+        pcCached := Mux(directHit, directResult.payload.cached, savedCSR.CRMD_DATF(0))
+        tlbRefill := TLBR
+      } else {
+        val translateResult = mmu.translate(
+          virtPC,
+          MemOperationType.FETCH,
+          input(DIRECT_TRANSLATE_RESULT),
+          input(TLB_TRANSLATE_RESULT),
+          input(TRANSLATE_SAVED_CSR)
+        )
+        PIF := translateResult.resultExceptionBundle.raisePIF
+        PPI := translateResult.resultExceptionBundle.raisePPI
+        TLBR := translateResult.resultExceptionBundle.raiseTLBR
+
+        physPC := translateResult.resultPhysAddr
+        pcCached := translateResult.resultCached
+        tlbRefill := TLBR
+      }
 
     }
   }

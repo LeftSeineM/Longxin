@@ -69,6 +69,14 @@ stable-clock claim.
   performance innovation.  It is retained as a checkpoint while other
   fanout thresholds and architectural optimizations are evaluated.
 
+## 6. Fanout-threshold ablation
+
+Thresholds 128 and 256 were also generated and synthesized.  The 128 build
+routed to exactly the same WNS, LUT, FF and critical path as N4-A.  The 256
+build produced the same synthesized-netlist checksum as N4-A.  Vivado
+therefore converged all three thresholds to the same physical intervention;
+64 remains the named default and the redundant profiles are not retained.
+
 Evidence:
 
 - `reports/WB-N4/official/bitcount_summary.md`

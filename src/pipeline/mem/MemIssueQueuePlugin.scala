@@ -23,7 +23,8 @@ class MemIssueQueuePlugin(config: MyCPUConfig)
 
   def build(pipeline: MyCPUCore): Unit = pipeline.DISPATCH plug new Area {
     genIssueSelect()
-    genGlobalWakeup(pipeline.service(classOf[PhysRegFilePlugin]), rPorts)
+    if (!config.memIssue.useWeBattleQueueState)
+      genGlobalWakeup(pipeline.service(classOf[PhysRegFilePlugin]), rPorts)
     import pipeline.DISPATCH._
     // 入队、唤醒与int IQ相同
     val decPacket = input(pipeline.decodePipeline.signals.DECODE_PACKET)
@@ -124,8 +125,12 @@ class MemIssueQueuePlugin(config: MyCPUConfig)
 
   }
   Component.current.afterElaboration {
-    genEnqueueLogic()
-    genCompressLogic()
-    genFlushLogic()
+    if (config.memIssue.useWeBattleQueueState)
+      genWeBattleQueueState(rPorts)
+    else {
+      genEnqueueLogic()
+      genCompressLogic()
+      genFlushLogic()
+    }
   }
 }

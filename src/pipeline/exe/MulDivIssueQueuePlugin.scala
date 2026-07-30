@@ -25,7 +25,8 @@ class MulDivIssueQueuePlugin(config: MyCPUConfig)
 
   override def build(pipeline: MyCPUCore): Unit = pipeline.DISPATCH plug new Area {
     genIssueSelect()
-    genGlobalWakeup(pipeline.service(classOf[PhysRegFilePlugin]), rPorts)
+    if (!config.mulDiv.useWeBattleQueueState)
+      genGlobalWakeup(pipeline.service(classOf[PhysRegFilePlugin]), rPorts)
     import pipeline.DISPATCH._
     // 入队、唤醒与int IQ相同
     val decPacket = input(pipeline.decodePipeline.signals.DECODE_PACKET)
@@ -72,9 +73,13 @@ class MulDivIssueQueuePlugin(config: MyCPUConfig)
   }
 
   Component.current.afterElaboration {
-    genEnqueueLogic()
-    genCompressLogic()
-    genFlushLogic()
+    if (config.mulDiv.useWeBattleQueueState)
+      genWeBattleQueueState(rPorts)
+    else {
+      genEnqueueLogic()
+      genCompressLogic()
+      genFlushLogic()
+    }
   }
 
 }

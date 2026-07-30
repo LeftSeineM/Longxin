@@ -172,6 +172,38 @@ object WeBattleProfiles {
       useWeBattleCommitControl = true
     )
   )
+
+  /** N10 is the timing-safe first scheduling checkpoint. It replaces the
+    * integer queue state while preserving N9 fallbacks for memory and MDU.
+    */
+  def N10: MyCPUConfig = N9.copy(
+    intIssue = N9.intIssue.copy(useWeBattleQueueState = true)
+  )
+
+  /** N10A is the complete three-queue/MDU ablation. It passes simulation but
+    * remains experimental until its physical timing is redesigned.
+    */
+  def N10A: MyCPUConfig = N10.copy(
+    mulDiv = N9.mulDiv.copy(
+      useWeBattleQueueState = true,
+      useWeBattleExecuteUnit = true
+    ),
+    memIssue = N9.memIssue.copy(useWeBattleQueueState = true)
+  )
+
+  /** N10 diagnosis profiles; these are not release checkpoints. */
+  def N10IntQueueAblation: MyCPUConfig = N10
+
+  def N10MemQueueAblation: MyCPUConfig = N9.copy(
+    memIssue = N9.memIssue.copy(useWeBattleQueueState = true)
+  )
+
+  def N10MulDivAblation: MyCPUConfig = N9.copy(
+    mulDiv = N9.mulDiv.copy(
+      useWeBattleQueueState = true,
+      useWeBattleExecuteUnit = true
+    )
+  )
 }
 
 final case class FrontendConfig(
@@ -205,6 +237,7 @@ final case class DecodeConfig(
 abstract class IssueConfig {
   val issueWidth: Int
   val depth: Int
+  val useWeBattleQueueState: Boolean
   val addrWidth = log2Up(depth)
 }
 
@@ -217,7 +250,8 @@ final case class IntIssueConfig(
     depth: Int = 7,
     useWeBattleAgeSelector: Boolean = false,
     useWeBattleWakeupMatrix: Boolean = false,
-    useWeBattleIntegerDatapath: Boolean = false
+    useWeBattleIntegerDatapath: Boolean = false,
+    useWeBattleQueueState: Boolean = false
 ) extends IssueConfig {
   require(0 <= bruIdx && bruIdx < issueWidth)
   require(0 <= csrIdx && csrIdx < issueWidth)
@@ -228,14 +262,17 @@ final case class IntIssueConfig(
 final case class MulDivConfig(
     depth: Int = 3,
     multiplyLatency: Int = 2,
-    divisionEarlyOutWidth: Int = 16 // set to 0 to disable early out
+    divisionEarlyOutWidth: Int = 16, // set to 0 to disable early out
+    useWeBattleQueueState: Boolean = false,
+    useWeBattleExecuteUnit: Boolean = false
 ) extends IssueConfig {
   val issueWidth: Int = 1
   def useDivisionEarlyOut = divisionEarlyOutWidth > 0
 }
 
 final case class MemIssueConfig(
-    depth: Int = 5
+    depth: Int = 5,
+    useWeBattleQueueState: Boolean = false
 ) extends IssueConfig {
   val issueWidth: Int = 1
 }

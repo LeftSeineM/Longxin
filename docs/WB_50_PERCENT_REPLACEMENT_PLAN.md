@@ -57,9 +57,11 @@ implementation must have the same line count.
 |---|---|---:|---:|
 | Accepted/WIP frontend+integer datapath | Fetch queue, checkpointed RAS, integer ALU/compare/branch datapath | 300 | 6.3% |
 | N9 backend state cluster | Rename/RAT, physical-register state, ROB storage, retirement/commit control | 688 | 20.6% |
-| N10 unified issue/MDU cluster | Integer, MulDiv and memory issue queues plus MulDiv execution | 457 | 30.2% |
-| N11 LSU/control cluster | Address generation, load/store execution, store buffer, load post-process and uncached control | 515 | 40.9% |
-| N12 instruction-front-end cluster | I-cache and BTB control/data paths | 468 | **50.7%** |
+| N10 integer scheduling checkpoint | Integer issue-queue state and compaction | 96 | 22.6% |
+| N11 MulDiv scheduling/execute | MulDiv queue plus MulDiv execution control | 242 | 27.7% |
+| N12 memory scheduling | Memory issue-queue state and compaction | 119 | 30.2% |
+| N13 LSU/control cluster | Address generation, load/store execution, store buffer, load post-process and uncached control | 515 | 40.9% |
+| N14 instruction-front-end cluster | I-cache and BTB control/data paths | 468 | **50.7%** |
 
 This route reaches the target without rewriting decode tables merely to gain
 line count and without making the large D-cache the critical path to 50%.
@@ -87,12 +89,10 @@ but loses performance stays an experimental checkpoint until redesigned.
 
 1. Preserve N9 as the accepted 20.62% ownership checkpoint and N7 as the
    strict combined performance head.
-2. Replace all three issue-queue families and MulDiv execution as one N10
-   scheduling/MDU batch, using the independently validated PulseLA M6 work as
-   a design reference rather than importing incompatible RTL blindly.
-3. Recover at least 0.12 ns of timing margin in N10 by registering or
-   localizing wakeup/select and recovery fanout; do not promote N10 if its
-   combined Fmax/cycle score is below N7.
+2. Preserve accepted N10 as the integer scheduling checkpoint. The original
+   all-at-once N10A experiment remains rejected for negative routed WNS.
+3. Integrate MulDiv and memory scheduling as separate N11/N12 checkpoints so
+   each physical and cycle effect remains attributable.
 4. Keep the previous validated generated RTL package at every accepted
    checkpoint.
 5. Update the ownership numerator only after the corresponding batch passes

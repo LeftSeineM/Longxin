@@ -86,3 +86,17 @@ timing at WNS +0.002 ns. The accepted component-weighted coverage is
 988 / 4,791 = **20.62%**. This makes N9 the ownership head. N7 remains the
 strict combined performance head because N9's +1.157% cycle speedup is offset
 by a -1.190% route-derived Fmax change.
+
+## 6. N10 accepted ownership disclosure
+
+N10 replaces the integer issue-queue state, compaction, append, wakeup folding
+and flush boundary with `WeBattleDenseIssueQueueState`. It passes official
+58/58 functionality, official 20/20 performance and routed timing at WNS
++0.036 ns. Accepted component-weighted coverage is:
+
+`(988 + 96) / 4,791 = 22.63%`
+
+N10 is also the strict combined performance head: the route-derived
+Fmax/cycle estimate is 0.404% above N7. The memory/MulDiv queue integration and
+`WeBattleMulDivUnit` are present as attributed N10A experiments but are not
+counted until their own later checkpoints pass non-negative routed timing.

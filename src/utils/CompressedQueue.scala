@@ -6,6 +6,7 @@ import scala.collection.mutable
 
 import NOP.pipeline.core._
 import NOP.pipeline._
+import NOP.pipeline.exe.WeBattleDenseIssueQueueState
 import NOP.builder._
 import NOP._
 
@@ -35,6 +36,7 @@ abstract class CompressedQueue[T <: IssueSlot](
 
   val busyAddrs: Vec[UInt] // For overwritten in subclasses
   var busyRsps: Vec[Bool] = null // Read from PRF
+  var wakeupPorts: Seq[Flow[UInt]] = Seq.empty
   def fuMatch(uop: MicroOp): Bool // For overwritten in subclasses
 
   protected val grantPorts = mutable.ArrayBuffer[(Seq[Bool], Vec[Bool])]()
@@ -103,6 +105,22 @@ abstract class CompressedQueue[T <: IssueSlot](
     }
   }
 
+  def genWeBattleQueueState(
+      operandPorts: Int,
+      extraWakeups: Seq[Flow[UInt]] = Seq.empty
+  ) =
+    new WeBattleDenseIssueQueueState(
+      slotType,
+      queue,
+      queueIO.pushPorts,
+      issueMask,
+      issueFire,
+      queueFlush,
+      wakeupPorts ++ extraWakeups,
+      operandPorts,
+      issueWidth
+    )
+
   def genIssueSelect() = {
     // issue选择
     require(grantPorts.size <= issueWidth)
@@ -135,5 +153,6 @@ abstract class CompressedQueue[T <: IssueSlot](
   override def setup(pipeline: MyCPUCore): Unit = {
     val PRF = pipeline.service(classOf[PhysRegFilePlugin])
     busyRsps = Vec(busyAddrs.map(PRF.readBusy(_)))
+    wakeupPorts = PRF.clearBusys.toSeq
   }
 }

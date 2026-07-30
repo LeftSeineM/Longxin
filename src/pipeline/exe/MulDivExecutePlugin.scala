@@ -86,105 +86,133 @@ class MulDivExecutePlugin(val config: MyCPUConfig) extends Plugin[ExecutePipelin
       val regData = rrdRsp
       val exeResult = insert(EXE_RESULT)
 
-      val isSigned = issSlot.uop.signed
+      if (config.mulDiv.useWeBattleExecuteUnit) {
+        val unit = new WeBattleMulDivUnit(config.mulDiv)
+        val isMultiply =
+          issSlot.uop.fuType === FUType.MUL ||
+            issSlot.uop.fuType === FUType.MULH
+        val isHighOrRemainder =
+          issSlot.uop.fuType === FUType.MULH ||
+            issSlot.uop.fuType === FUType.MOD
 
-      // ! Multiply
-      val isMultiply =
-        arbitration.isValidOnEntry && (issSlot.uop.fuType === FUType.MUL || issSlot.uop.fuType === FUType.MULH)
+        unit.io.flush := flush
+        unit.io.cmd.valid := arbitration.isValidOnEntry
+        unit.io.cmd.multiply := isMultiply
+        unit.io.cmd.highOrRemainder := isHighOrRemainder
+        unit.io.cmd.signed := issSlot.uop.signed
+        unit.io.cmd.lhs := regData(0)
+        unit.io.cmd.rhs := regData(1)
+        unit.io.rsp.ready := !arbitration.isStuckByOthers
 
-      val rj = regData(0).asSInt
-      val rk = regData(1).asSInt
-      val absRj = rj.abs(isSigned)
-      val absRk = rk.abs(isSigned)
+        arbitration.haltItself setWhen (
+          arbitration.isValidOnEntry && !unit.io.rsp.valid
+        )
+        exeResult := unit.io.rsp.payload
 
-      val wakeupCycle = CombInit(arbitration.notStuck)
+        clrBusy.valid :=
+          arbitration.isValid && unit.io.wakeup && issSlot.uop.doRegWrite
+        clrBusy.payload := issSlot.wReg
+      } else {
+        val isSigned = issSlot.uop.signed
 
-      val multiplier = new Multiplier()
-      multiplier.io.A := absRj
-      multiplier.io.B := absRk
-      val mulResult =
-        multiplier.io.P.twoComplement(isSigned && (rj.sign ^ rk.sign)).asBits(0, 64 bits)
+        // ! Multiply
+        val isMultiply =
+          arbitration.isValidOnEntry && (issSlot.uop.fuType === FUType.MUL || issSlot.uop.fuType === FUType.MULH)
 
-      val mulCounter = Counter(config.mulDiv.multiplyLatency + 1)
+        val rj = regData(0).asSInt
+        val rk = regData(1).asSInt
+        val absRj = rj.abs(isSigned)
+        val absRk = rk.abs(isSigned)
 
-      when(isMultiply) {
-        mulCounter.increment()
-        arbitration.haltItself setWhen (!mulCounter.willOverflowIfInc)
-        // assume never halt by others
-        wakeupCycle := mulCounter === config.mulDiv.multiplyLatency - 1
-      }
+        val wakeupCycle = CombInit(arbitration.notStuck)
 
-      // ! Division
-      val isDivision = arbitration.isValidOnEntry &&
-        (issSlot.uop.fuType === FUType.DIV || issSlot.uop.fuType === FUType.MOD)
-      val isFirstCycle = RegNext(arbitration.notStuck)
-      val useEarlyOut = config.mulDiv.useDivisionEarlyOut
-      val smallDivSize = config.mulDiv.divisionEarlyOutWidth
-      val in16Bits =
-        if (useEarlyOut)
-          absRj(31 downto smallDivSize) === 0 && absRk(31 downto smallDivSize) === 0
-        else
-          False
-      val (quotient, remainder) = {
-        val divider = new math.UnsignedDivider(32, 32, false)
-        divider.io.flush := False
-        divider.io.cmd.valid := isDivision && isFirstCycle && !in16Bits
-        divider.io.cmd.numerator := absRj
-        divider.io.cmd.denominator := absRk
-        divider.io.rsp.ready := !arbitration.isStuckByOthers
-        val absQuotient = UInt(32 bits)
-        val absRemainder = UInt(32 bits)
+        val multiplier = new Multiplier()
+        multiplier.io.A := absRj
+        multiplier.io.B := absRk
+        val mulResult =
+          multiplier.io.P.twoComplement(isSigned && (rj.sign ^ rk.sign)).asBits(0, 64 bits)
 
-        if (useEarlyOut) {
-          val divider16 = new math.UnsignedDivider(16, 16, false)
-          divider16.io.flush := False
-          divider16.io.cmd.valid := isDivision && isFirstCycle
-          divider16.io.cmd.numerator := absRj.resized
-          divider16.io.cmd.denominator := absRk.resized
-          divider16.io.rsp.ready := !arbitration.isStuckByOthers
+        val mulCounter = Counter(config.mulDiv.multiplyLatency + 1)
 
-          when(isDivision) {
-            arbitration.haltItself setWhen (!in16Bits && !divider.io.rsp.valid)
-            arbitration.haltItself setWhen (in16Bits && !divider16.io.rsp.valid)
-          }
-          when(in16Bits) {
-            absQuotient := divider16.io.rsp.quotient.resized
-            absRemainder := divider16.io.rsp.remainder.resized
-          } otherwise {
+        when(isMultiply) {
+          mulCounter.increment()
+          arbitration.haltItself setWhen (!mulCounter.willOverflowIfInc)
+          // assume never halt by others
+          wakeupCycle := mulCounter === config.mulDiv.multiplyLatency - 1
+        }
+
+        // ! Division
+        val isDivision = arbitration.isValidOnEntry &&
+          (issSlot.uop.fuType === FUType.DIV || issSlot.uop.fuType === FUType.MOD)
+        val isFirstCycle = RegNext(arbitration.notStuck)
+        val useEarlyOut = config.mulDiv.useDivisionEarlyOut
+        val smallDivSize = config.mulDiv.divisionEarlyOutWidth
+        val in16Bits =
+          if (useEarlyOut)
+            absRj(31 downto smallDivSize) === 0 && absRk(31 downto smallDivSize) === 0
+          else
+            False
+        val (quotient, remainder) = {
+          val divider = new math.UnsignedDivider(32, 32, false)
+          divider.io.flush := False
+          divider.io.cmd.valid := isDivision && isFirstCycle && !in16Bits
+          divider.io.cmd.numerator := absRj
+          divider.io.cmd.denominator := absRk
+          divider.io.rsp.ready := !arbitration.isStuckByOthers
+          val absQuotient = UInt(32 bits)
+          val absRemainder = UInt(32 bits)
+
+          if (useEarlyOut) {
+            val divider16 = new math.UnsignedDivider(16, 16, false)
+            divider16.io.flush := False
+            divider16.io.cmd.valid := isDivision && isFirstCycle
+            divider16.io.cmd.numerator := absRj.resized
+            divider16.io.cmd.denominator := absRk.resized
+            divider16.io.rsp.ready := !arbitration.isStuckByOthers
+
+            when(isDivision) {
+              arbitration.haltItself setWhen (!in16Bits && !divider.io.rsp.valid)
+              arbitration.haltItself setWhen (in16Bits && !divider16.io.rsp.valid)
+            }
+            when(in16Bits) {
+              absQuotient := divider16.io.rsp.quotient.resized
+              absRemainder := divider16.io.rsp.remainder.resized
+            } otherwise {
+              absQuotient := divider.io.rsp.quotient
+              absRemainder := divider.io.rsp.remainder
+            }
+          } else {
+            when(isDivision) {
+              arbitration.haltItself setWhen (!divider.io.rsp.valid)
+            }
             absQuotient := divider.io.rsp.quotient
             absRemainder := divider.io.rsp.remainder
           }
-        } else {
-          when(isDivision) {
-            arbitration.haltItself setWhen (!divider.io.rsp.valid)
+          val quotient = absQuotient.twoComplement(isSigned && (rj.sign ^ rk.sign)).asBits(0, 32 bits)
+          val remainder = absRemainder.twoComplement(isSigned && rj.sign).asBits(0, 32 bits)
+          (quotient, remainder)
+        }
+
+        exeResult.assignDontCare()
+        switch(issSlot.uop.fuType) {
+          is(FUType.MUL) {
+            exeResult := mulResult(31 downto 0)
           }
-          absQuotient := divider.io.rsp.quotient
-          absRemainder := divider.io.rsp.remainder
+          is(FUType.MULH) {
+            exeResult := mulResult(63 downto 32)
+          }
+          is(FUType.DIV) {
+            exeResult := quotient
+          }
+          is(FUType.MOD) {
+            exeResult := remainder
+          }
         }
-        val quotient = absQuotient.twoComplement(isSigned && (rj.sign ^ rk.sign)).asBits(0, 32 bits)
-        val remainder = absRemainder.twoComplement(isSigned && rj.sign).asBits(0, 32 bits)
-        (quotient, remainder)
-      }
 
-      exeResult.assignDontCare()
-      switch(issSlot.uop.fuType) {
-        is(FUType.MUL) {
-          exeResult := mulResult(31 downto 0)
-        }
-        is(FUType.MULH) {
-          exeResult := mulResult(63 downto 32)
-        }
-        is(FUType.DIV) {
-          exeResult := quotient
-        }
-        is(FUType.MOD) {
-          exeResult := remainder
-        }
+        // 远程唤醒
+        clrBusy.valid := arbitration.isValid && wakeupCycle && issSlot.uop.doRegWrite
+        clrBusy.payload := issSlot.wReg
       }
-
-      // 远程唤醒
-      clrBusy.valid := arbitration.isValid && wakeupCycle && issSlot.uop.doRegWrite
-      clrBusy.payload := issSlot.wReg
     }
 
     pipeline.WB plug new Area {

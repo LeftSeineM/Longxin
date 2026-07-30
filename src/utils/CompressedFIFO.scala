@@ -6,6 +6,7 @@ import scala.collection.mutable
 
 import NOP.pipeline.core._
 import NOP.pipeline._
+import NOP.pipeline.exe.WeBattleDenseIssueQueueState
 import NOP.builder._
 import NOP._
 
@@ -35,6 +36,7 @@ abstract class CompressedFIFO[T <: IssueSlot](
 
   val busyAddrs: Vec[UInt]
   var busyRsps: Vec[Bool] = null
+  var wakeupPorts: Seq[Flow[UInt]] = Seq.empty
   def fuMatch(uop: MicroOp): Bool
 
   val queue = out(Vec(RegFlow(slotType()), depth)) // 做槽移动
@@ -84,6 +86,23 @@ abstract class CompressedFIFO[T <: IssueSlot](
     }
   }
 
+  def genWeBattleQueueState(operandPorts: Int) = {
+    val issued = Bits(depth bits)
+    issued := 0
+    issued(0) := issueReq
+    new WeBattleDenseIssueQueueState(
+      slotType,
+      queue,
+      queueIO.pushPorts,
+      issued,
+      issueFire,
+      queueFlush,
+      wakeupPorts,
+      operandPorts,
+      issueWidth
+    )
+  }
+
   def genIssueSelect() = {
     // issue选择
   }
@@ -102,5 +121,6 @@ abstract class CompressedFIFO[T <: IssueSlot](
   override def setup(pipeline: MyCPUCore): Unit = {
     val PRF = pipeline.service(classOf[PhysRegFilePlugin])
     busyRsps = Vec(busyAddrs.map(PRF.readBusy(_)))
+    wakeupPorts = PRF.clearBusys.toSeq
   }
 }

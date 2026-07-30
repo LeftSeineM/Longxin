@@ -28,6 +28,7 @@ class IntExecutePlugin(val config: MyCPUConfig, val fuIdx: Int) extends Plugin[E
   val bypassReq = Vec(UInt(prfAddrWidth bits), rPorts)
   var bypassRsp: Vec[Flow[Bits]] = null
   var clrBusy: Flow[UInt] = null
+  var localWakeup: Flow[UInt] = null
   var wPort: Flow[RegWriteBundle] = null
   var robWriteBRU: Flow[ROBStateBRUPortBundle] = null
   var robWrite: Flow[ROBStateALUPortBundle] = null
@@ -63,6 +64,8 @@ class IntExecutePlugin(val config: MyCPUConfig, val fuIdx: Int) extends Plugin[E
     //        (2) IntPipeline sends issue requests to IntIssueQueue
     //        (3) IntIssueQueue sends issue grants to IntPipeline
     issGrant = IQ.grantPort(issReqs)
+    if (config.intIssue.useWeBattleQueueState)
+      localWakeup = IQ.localWakeupPort()
 
     // RRD: Read PRF
     // EXE: Read from Bypass Network. If not found, use RRD response
@@ -120,13 +123,18 @@ class IntExecutePlugin(val config: MyCPUConfig, val fuIdx: Int) extends Plugin[E
 
       // 本地 bypass 唤醒，早一个周期，一个周期后既能出结果，该指令也能 RRD
       when(issValid && issSlot.uop.doRegWrite) {
-        for (i <- 0 until iqDepth) {
-          for (j <- 0 until rPorts)
-            when(issSlot.wReg === IQ.queueNext(i).rRegs(j).payload && arbitration.notStuck) {
-              // bypass wake-up with bypass network
-              IQ.queue(i).rRegs(j).valid := True
-              IQ.queueNext(i).rRegs(j).valid := True
-            }
+        if (config.intIssue.useWeBattleQueueState) {
+          localWakeup.valid := arbitration.notStuck
+          localWakeup.payload := issSlot.wReg
+        } else {
+          for (i <- 0 until iqDepth) {
+            for (j <- 0 until rPorts)
+              when(issSlot.wReg === IQ.queueNext(i).rRegs(j).payload && arbitration.notStuck) {
+                // bypass wake-up with bypass network
+                IQ.queue(i).rRegs(j).valid := True
+                IQ.queueNext(i).rRegs(j).valid := True
+              }
+          }
         }
       }
     }

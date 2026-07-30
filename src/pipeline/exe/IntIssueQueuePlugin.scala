@@ -2,6 +2,7 @@ package NOP.pipeline.exe
 
 import spinal.core._
 import spinal.lib._
+import scala.collection.mutable
 
 import NOP._
 import NOP.builder._
@@ -21,6 +22,13 @@ class IntIssueQueuePlugin(config: MyCPUConfig)
   private val issConfig = config.intIssue
   val rPorts = config.regFile.rPortsEachInst
   val busyAddrs = Vec(UInt(config.regFile.prfAddrWidth bits), decodeWidth * rPorts)
+  private val localWakeupPorts = mutable.ArrayBuffer[Flow[UInt]]()
+  def localWakeupPort(): Flow[UInt] = {
+    val port = Flow(UInt(config.regFile.prfAddrWidth bits))
+    port.setIdle()
+    localWakeupPorts += port
+    port
+  }
   def fuMatch(uop: MicroOp): Bool = {
     uop.fuType === FUType.ALU || uop.fuType === FUType.CMP ||
     uop.fuType === FUType.CSR || uop.fuType === FUType.TIMER || uop.fuType === FUType.INVTLB
@@ -96,7 +104,9 @@ class IntIssueQueuePlugin(config: MyCPUConfig)
       if (config.intIssue.useWeBattleAgeSelector) genWeBattleIssueSelect()
       else genIssueSelect()
       val prf = pipeline.service(classOf[PhysRegFilePlugin])
-      if (config.intIssue.useWeBattleWakeupMatrix)
+      if (config.intIssue.useWeBattleQueueState) {
+        // Wakeup is folded into the unified queue next-state engine.
+      } else if (config.intIssue.useWeBattleWakeupMatrix)
         genWeBattleGlobalWakeup(prf, rPorts)
       else genGlobalWakeup(prf, rPorts)
       import pipeline.DISPATCH._
@@ -142,9 +152,13 @@ class IntIssueQueuePlugin(config: MyCPUConfig)
     }
 
     Component.current.afterElaboration {
-      genEnqueueLogic()
-      genCompressLogic()
-      genFlushLogic()
+      if (config.intIssue.useWeBattleQueueState)
+        genWeBattleQueueState(rPorts, localWakeupPorts.toSeq)
+      else {
+        genEnqueueLogic()
+        genCompressLogic()
+        genFlushLogic()
+      }
     }
   }
 }

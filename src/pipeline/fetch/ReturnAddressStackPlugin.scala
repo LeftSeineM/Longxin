@@ -12,13 +12,20 @@ import scala.collection.mutable.ArrayBuffer
 
 class ReturnAddressStackPlugin(config: FrontendConfig) extends Plugin[FetchPipeline] {
   require(isPow2(config.btb.rasEntries))
-  val ras = Vec(RegInit(U(config.pcInit >> 2, 30 bits)), config.btb.rasEntries)
-  val rasTopEntry = RegInit(U(0, log2Up(config.btb.rasEntries) bits))
   val rasPredict = Flow(UWord()).setIdle()
 
   override def build(pipeline: FetchPipeline): Unit = {
-    pipeline.IF2 plug new Area {
+    if (config.useWeBattleCheckpointRAS) {
+      buildWeBattle(pipeline)
+    } else {
+      buildInherited(pipeline)
+    }
+  }
 
+  private def buildWeBattle(pipeline: FetchPipeline): Unit = {
+    val checkpointRAS = new WeBattleCheckpointRAS(config)
+
+    pipeline.IF2 plug new Area {
       import pipeline.IF2._
       import pipeline.signals._
 
@@ -26,11 +33,52 @@ class ReturnAddressStackPlugin(config: FrontendConfig) extends Plugin[FetchPipel
       val jumpPayload = input(PREDICT_JUMP_PAYLOAD)
       val jumpWay = input(PREDICT_JUMP_WAY)
 
-      insert(RECOVER_TOP) := rasTopEntry // set Recover top for every instruction
+      insert(RECOVER_TOP) := checkpointRAS.io.checkpoint
+      checkpointRAS.io.speculativeFire :=
+        arbitration.isValid && !arbitration.isStuck && jumpFlag
+      checkpointRAS.io.speculativeCall := jumpPayload.isCall
+      checkpointRAS.io.speculativeReturn := jumpPayload.isReturn
+      checkpointRAS.io.speculativeReturnWord :=
+        input(PC)(2, 30 bits) + jumpWay + 1
 
-      when(arbitration.isValid && !arbitration.isStuck && jumpFlag) { // update ras when call or return is found
-        // note that ras shouldn't be updated when fetching delay slot
-        // note that ras predict update logic is triggered only when valid and firing
+      when(checkpointRAS.io.prediction.valid) {
+        rasPredict.push(checkpointRAS.io.prediction.payload)
+      }
+    }
+
+    pipeline plug new Area {
+      val bpuCommit = pipeline.globalService(classOf[CommitPlugin])
+      val predUpdate = bpuCommit.predUpdate
+      val payload = predUpdate.payload
+
+      checkpointRAS.io.repairValid :=
+        predUpdate.valid &&
+          ((payload.predInfo.predictBranch && !payload.branchLike) ||
+            payload.mispredict)
+      checkpointRAS.io.repairMispredict := payload.mispredict
+      checkpointRAS.io.repairCall := payload.isCall
+      checkpointRAS.io.repairReturn := payload.isRet
+      checkpointRAS.io.repairCheckpoint := payload.predRecover.recoverTop
+      checkpointRAS.io.repairPcWord := payload.pc(31 downto 2)
+    }
+  }
+
+  /** Exact fallback used by N0--N6 for reproducible A/B comparison. */
+  private def buildInherited(pipeline: FetchPipeline): Unit = {
+    val ras = Vec(RegInit(U(config.pcInit >> 2, 30 bits)), config.btb.rasEntries)
+    val rasTopEntry = RegInit(U(0, log2Up(config.btb.rasEntries) bits))
+
+    pipeline.IF2 plug new Area {
+      import pipeline.IF2._
+      import pipeline.signals._
+
+      val jumpFlag = input(PREDICT_JUMP_FLAG)
+      val jumpPayload = input(PREDICT_JUMP_PAYLOAD)
+      val jumpWay = input(PREDICT_JUMP_WAY)
+
+      insert(RECOVER_TOP) := rasTopEntry
+
+      when(arbitration.isValid && !arbitration.isStuck && jumpFlag) {
         when(jumpPayload.isCall) {
           ras(rasTopEntry + 1) := input(PC)(2, 30 bits) + jumpWay + 1
           rasTopEntry := rasTopEntry + 1
@@ -42,20 +90,18 @@ class ReturnAddressStackPlugin(config: FrontendConfig) extends Plugin[FetchPipel
     }
 
     pipeline plug new Area {
-      // commit area
       val bpuCommit = pipeline.globalService(classOf[CommitPlugin])
       val predUpdate = bpuCommit.predUpdate
 
-      when(predUpdate.valid) { // time to update
+      when(predUpdate.valid) {
         val payload = predUpdate.payload
         val pred = payload.predInfo
         val recover = payload.predRecover
         when(pred.predictBranch && !payload.branchLike) {
-          // Case 1, modified instruction, not branch anymore, must be mispredicted
           rasTopEntry := recover.recoverTop
         }
 
-        when(payload.mispredict) { // ras is the only thing need to recover when mispredict
+        when(payload.mispredict) {
           when(payload.isCall) {
             rasTopEntry := recover.recoverTop + 1
             ras(recover.recoverTop + 1) := payload.pc(31 downto 2) + 1

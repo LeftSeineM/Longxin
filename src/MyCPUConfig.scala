@@ -125,6 +125,15 @@ object WeBattleProfiles {
   def N6: MyCPUConfig = N5.copy(
     frontend = N5.frontend.copy(useWeBattleFetchQueue = true)
   )
+
+  /** N7 replaces the inherited return-address stack state machine with the
+    * independently implemented WeBattle checkpointed RAS.  The external
+    * checkpoint width is unchanged, so N7 can be compared cycle-for-cycle
+    * against N6 without perturbing the fetch-buffer or ROB payloads.
+    */
+  def N7: MyCPUConfig = N6.copy(
+    frontend = N6.frontend.copy(useWeBattleCheckpointRAS = true)
+  )
 }
 
 final case class FrontendConfig(
@@ -134,7 +143,8 @@ final case class FrontendConfig(
     bpu: BPUConfig = BPUConfig(),
     fetchWidth: Int = 4,
     fetchBufferDepth: Int = 8,
-    useWeBattleFetchQueue: Boolean = false
+    useWeBattleFetchQueue: Boolean = false,
+    useWeBattleCheckpointRAS: Boolean = false
 )
 
 final case class RegFileConfig(

@@ -11,16 +11,17 @@ Upstream base:
 - license: MIT;
 - all inherited copyright and license notices remain in the repository.
 
-## 1. Current N6 ownership
+## 1. Current N7 candidate ownership
 
-| Area | N6 status | WeBattle contribution | Evidence |
+| Area | N7 status | WeBattle contribution | Evidence |
 |---|---|---|---|
 | 2026 SoC top/wrapper | WeBattle-maintained | Narrow contest-native top, CPUCFG compatibility and event ports | `src/WeBattleRawTop.scala`, `integration/core_top.sv` |
 | Address-translation profile | WeBattle specialization | Compile-time preliminary-round DA/DMW path with full MMU fallback | `docs/WB-N2_INNOVATION.md` |
 | Branch direction prediction | Substantially modified inherited frontend | Added packed global+bimodal tournament chooser, snapshot transport and training | `docs/WB-N5_DESIGN.md` |
 | Fetch instruction queue | **Independent N6 replacement** | Explicit-occupancy 4-enqueue/3-dequeue queue, dense-lane contract, atomic flush and assertions | `src/pipeline/fetch/WeBattleFetchQueue.scala` |
 | Program counter and I-cache | Inherited | Configuration/integration only | NOP-Core source |
-| BTB and RAS | Inherited with predictor integration | No full replacement claimed yet | NOP-Core source |
+| BTB | Inherited with predictor integration | No full replacement claimed yet | NOP-Core source |
+| Return-address stack | **Independent N7 candidate replacement** | Next-free pointer state model, unchanged-width per-fetch checkpoints and explicit atomic commit-repair priority | `src/pipeline/fetch/WeBattleCheckpointRAS.scala`, `docs/WB-N7_DESIGN.md` |
 | Decode and instruction parser | Inherited | No full replacement claimed | NOP-Core source |
 | Rename/RAT/physical register file | Inherited | No full replacement claimed | NOP-Core source |
 | Integer/MulDiv/LSU issue queues | Inherited | No full replacement claimed | NOP-Core source |
@@ -63,3 +64,25 @@ The order is chosen by interface clarity and rollback risk:
 
 Each item receives its own version checkpoint.  A later module is not allowed
 to obscure the measured effect of an earlier replacement.
+
+## 4. N8 work-in-progress disclosure
+
+N8 is not yet an accepted checkpoint.  Its independent candidate scope is the
+integer age selector plus ALU/comparison/branch-resolution datapath documented
+in `docs/WB-N8_DESIGN.md`.  Integer queue storage/compression/wakeup,
+MulDiv/LSU issue and MulDiv execution remain inherited.  The table above stays
+at the last validated N7 ownership state until N8 passes every gate.
+
+## 5. N9 accepted ownership disclosure
+
+N9 is a single backend-state replacement batch covering rename/FreeList,
+physical-register state, ROB storage/completion, and commit/recovery control.
+It also validates the N8 integer selector, wakeup and execute replacements as
+part of one packaged RTL image. Its contract, audit weights and complete
+validation are recorded in `docs/WB-N9_DESIGN.md`.
+
+N9 passed official 58/58 functionality, official 20/20 performance and routed
+timing at WNS +0.002 ns. The accepted component-weighted coverage is
+988 / 4,791 = **20.62%**. This makes N9 the ownership head. N7 remains the
+strict combined performance head because N9's +1.157% cycle speedup is offset
+by a -1.190% route-derived Fmax change.

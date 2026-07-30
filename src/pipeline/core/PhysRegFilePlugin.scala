@@ -42,13 +42,15 @@ class PhysRegFilePlugin(config: RegFileConfig) extends Plugin[MyCPUCore] {
   def writePort(bypass: Boolean) = {
     val port = Flow(RegWriteBundle(config.prfAddrWidth)) // .setCompositeName(this, "writePort", true)
     writePorts += PRFWritePort(port, bypass)
-    when(port.valid)(regs(port.payload.addr - 1) := port.payload.data)
+    if (!config.useWeBattlePhysicalRegisterFile)
+      when(port.valid)(regs(port.payload.addr - 1) := port.payload.data)
     port
   }
   def clearBusy = {
     val port = Flow(UInt(config.prfAddrWidth bits))
     clearBusys += port
-    when(port.valid)(busys(port.payload - 1) := False)
+    if (!config.useWeBattlePhysicalRegisterFile)
+      when(port.valid)(busys(port.payload - 1) := False)
     port
   }
   def readPort(addr: UInt) = {
@@ -63,12 +65,28 @@ class PhysRegFilePlugin(config: RegFileConfig) extends Plugin[MyCPUCore] {
     port
   }
   override def build(pipeline: MyCPUCore): Unit = pipeline plug new Area {
-    if (pipeline.decodePipeline.serviceExist(classOf[RenamePlugin]))
-      pipeline.decodePipeline.service(classOf[RenamePlugin]).freeList.io.pop.foreach { popPort =>
+    val allocations =
+      if (pipeline.decodePipeline.serviceExist(classOf[RenamePlugin]))
+        pipeline.decodePipeline.service(classOf[RenamePlugin]).allocationPorts.toSeq
+      else Seq.empty
+
+    if (config.useWeBattlePhysicalRegisterFile) {
+      new WeBattlePhysicalRegisterState(
+        config,
+        regs,
+        busys,
+        allocations,
+        writePorts.toSeq,
+        clearBusys.toSeq,
+        readPorts.toSeq,
+        readBusys.toSeq
+      )
+    } else {
+      allocations.foreach { allocation =>
         // 分配出去的寄存器要标记为busy
         // 空闲寄存器的busy随便标，因此这么做似乎没有问题
         // 需要清busy的寄存器必然不在free list中，直到其生命周期结束
-        when(popPort.fire)(busys(popPort.payload - 1) := True)
+        when(allocation.valid)(busys(allocation.payload - 1) := True)
       }
     for (i <- 0 until config.nPhysRegs) {
       val writeOH = writePorts.map { p => p.hw.valid && p.hw.addr - 1 === i }
@@ -91,6 +109,7 @@ class PhysRegFilePlugin(config: RegFileConfig) extends Plugin[MyCPUCore] {
       // busy需要被前传，这样write back就会唤醒正在进入IQ的指令
       val writeOH = clearBusys.map { p => p.valid && p.payload === r._1 }
       when(writeOH.orR) { r._2 := False }
+    }
     }
 
   }

@@ -121,7 +121,9 @@ class MyCPUCore(config: MyCPUConfig) extends Component with MultiPipeline {
   plugins ++= List(
     new PhysRegFilePlugin(config.regFile),
     new ROBFIFOPlugin(config),
-    new CommitPlugin(config),
+    (if (config.rob.useWeBattleCommitControl)
+       new WeBattleCommitPlugin(config)
+     else new CommitPlugin(config)),
     new BypassNetworkPlugin(config.regFile),
     // Reservation stations
     new IntIssueQueuePlugin(config),

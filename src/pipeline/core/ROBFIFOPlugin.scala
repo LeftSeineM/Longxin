@@ -65,17 +65,9 @@ class ROBFIFOPlugin(config: MyCPUConfig) extends Plugin[MyCPUCore] {
 
   val robState = Reg(Vec(stateType, robDepth))
 
-  val pushPtr = robInfo.pushPtr
-  val popPtr = robInfo.popPtr
-  val fifoIO = new Bundle {
-
-    /** push的valid，pop的ready，都要遵循连续性，从头开始的第一个0就表示了停止的位置，后面的1都会被忽略。
-      */
-    val push = Vec(Stream(ROBEntryBundle(config, false)), decodeWidth)
-    val pop = Vec(Stream(entryType), retireWidth)
-    // 同步清空FIFO
-    val flush = Bool
-  }
+  val pushPtr = UInt(addressWidth bits)
+  val popPtr = UInt(addressWidth bits)
+  val fifoIO = new WeBattleROBQueueIO(config)
 
   // TODO: [NOP] delete this debugging code
   val debug_fifoIO = out(new Bundle {
@@ -93,27 +85,47 @@ class ROBFIFOPlugin(config: MyCPUConfig) extends Plugin[MyCPUCore] {
         debugPopWriteData(i) := physRegs(fifoIO.pop(i).payload.info.rename.wReg) // bypassing for debug :)
       }
     }
-    // FIFO与MultiPortFIFOVec完全一致，但是ROB不止FIFO端口
-    // multi-port FIFO io
-    for (i <- 0 until retireWidth)
-      fifoIO.pop(i).translateFrom(robInfo.io.pop(i)) { (entry, info) =>
-        entry.info := info
-        entry.state.setAsReg().allowOverride
-        entry.state := robState(popPtr + robInfo.popCount + i)
-      }
+    if (config.rob.useWeBattleStorage) {
+      // The inherited fallback remains elaboratable for A/B runs, but is
+      // disconnected from the active N9 state path.
+      robInfo.io.push.foreach(_.setIdle())
+      robInfo.io.pop.foreach(_.ready := False)
+      robInfo.flush := False
+      val storage = new WeBattleROBStorage(
+        config,
+        fifoIO,
+        aluPorts.toSeq,
+        bruPorts.toSeq,
+        lsuPorts.toSeq,
+        completePorts.toSeq
+      )
+      pushPtr := storage.pushPtr
+      popPtr := storage.popPtr
+    } else {
+      pushPtr := robInfo.pushPtr
+      popPtr := robInfo.popPtr
 
-    for (i <- 0 until decodeWidth) {
-      robInfo.io.push(i).translateFrom(fifoIO.push(i)) { (info, entry) =>
-        info := entry.info
-      }
-      when(fifoIO.push(i).fire) {
-        robState(pushPtr + i).assignSomeByName(fifoIO.push(i).payload.state)
-        for (j <- i until retireWidth) when(pushPtr + i === popPtr + robInfo.popCount + j) {
-          fifoIO.pop(j).payload.state.assignSomeByName(fifoIO.push(i).payload.state)
+      // FIFO与MultiPortFIFOVec完全一致，但是ROB不止FIFO端口
+      // multi-port FIFO io
+      for (i <- 0 until retireWidth)
+        fifoIO.pop(i).translateFrom(robInfo.io.pop(i)) { (entry, info) =>
+          entry.info := info
+          entry.state.setAsReg().allowOverride
+          entry.state := robState(popPtr + robInfo.popCount + i)
+        }
+
+      for (i <- 0 until decodeWidth) {
+        robInfo.io.push(i).translateFrom(fifoIO.push(i)) { (info, entry) =>
+          info := entry.info
+        }
+        when(fifoIO.push(i).fire) {
+          robState(pushPtr + i).assignSomeByName(fifoIO.push(i).payload.state)
+          for (j <- i until retireWidth) when(pushPtr + i === popPtr + robInfo.popCount + j) {
+            fifoIO.pop(j).payload.state.assignSomeByName(fifoIO.push(i).payload.state)
+          }
         }
       }
-    }
-    robInfo.flush := fifoIO.flush
+      robInfo.flush := fifoIO.flush
 
     // random write ports
     println("ROB port summary:")
@@ -124,7 +136,7 @@ class ROBFIFOPlugin(config: MyCPUConfig) extends Plugin[MyCPUCore] {
     val portCount = aluPorts.size + bruPorts.size + lsuPorts.size + completePorts.size
     printf("  issue width: %d\n", portCount)
 
-    val defaultState = new ROBEntryStateBundle(config.regFile, true)
+      val defaultState = new ROBEntryStateBundle(config.regFile, true)
 
     // 完成则代表这条指令已经可以提交
     defaultState.complete := False
@@ -194,16 +206,17 @@ class ROBFIFOPlugin(config: MyCPUConfig) extends Plugin[MyCPUCore] {
           fifoIO.pop(j).payload.state.assignSomeByName(p.payload)
         }
       }
-    for (p <- completePorts)
-      when(p.valid) {
-        robState(p.payload) := defaultState
-        robState(p.payload).allowOverride()
-        robState(p.payload).complete := True
-        for (j <- 0 until retireWidth) when(p.payload === popPtr + robInfo.popCount + j) {
-          fifoIO.pop(j).payload.state := defaultState
-          fifoIO.pop(j).payload.state.allowOverride()
-          fifoIO.pop(j).payload.state.complete := True
+      for (p <- completePorts)
+        when(p.valid) {
+          robState(p.payload) := defaultState
+          robState(p.payload).allowOverride()
+          robState(p.payload).complete := True
+          for (j <- 0 until retireWidth) when(p.payload === popPtr + robInfo.popCount + j) {
+            fifoIO.pop(j).payload.state := defaultState
+            fifoIO.pop(j).payload.state.allowOverride()
+            fifoIO.pop(j).payload.state.complete := True
+          }
         }
-      }
+    }
   }
 }

@@ -159,7 +159,6 @@ class IntExecutePlugin(val config: MyCPUConfig, val fuIdx: Int) extends Plugin[E
     pipeline.EXE plug new Area {
       import pipeline.EXE._
       val issSlot = input(ISSUE_SLOT)
-      val alu = new ALU()
 
       // ! Prepare input data
       val rrdRsp = input(REG_READ_RSP)
@@ -201,7 +200,11 @@ class IntExecutePlugin(val config: MyCPUConfig, val fuIdx: Int) extends Plugin[E
           alu_src1_alternative := U(0xdeadbeefL, 32 bits)
         }
       }
-      alu.io.src1 := Mux(issSlot.uop.useRj, regData(0).asUInt, alu_src1_alternative)
+      val aluSrc1 = Mux(
+        issSlot.uop.useRj,
+        regData(0).asUInt,
+        alu_src1_alternative
+      )
 
       val alu_src2_alternative = UInt(32 bits)
       switch(issSlot.uop.aluOp) {
@@ -218,36 +221,76 @@ class IntExecutePlugin(val config: MyCPUConfig, val fuIdx: Int) extends Plugin[E
           alu_src2_alternative := imm12
         }
       }
-      alu.io.src2 := Mux(issSlot.uop.useRk, regData(1).asUInt, alu_src2_alternative)
+      val aluSrc2 = Mux(
+        issSlot.uop.useRk,
+        regData(1).asUInt,
+        alu_src2_alternative
+      )
+      val shiftAmount =
+        Mux(issSlot.uop.useRk, regData(1).asUInt(4 downto 0), fields.sa)
 
-      alu.io.sa := Mux(issSlot.uop.useRk, regData(1).asUInt(4 downto 0), fields.sa)
-      alu.io.op := issSlot.uop.aluOp
+      val aluResult = UWord()
+      if (config.intIssue.useWeBattleIntegerDatapath) {
+        val alu = new WeBattleIntegerALU
+        alu.io.src1 := aluSrc1
+        alu.io.src2 := aluSrc2
+        alu.io.shiftAmount := shiftAmount
+        alu.io.op := issSlot.uop.aluOp
+        aluResult := alu.io.result
+      } else {
+        val alu = new ALU()
+        alu.io.src1 := aluSrc1
+        alu.io.src2 := aluSrc2
+        alu.io.sa := shiftAmount
+        alu.io.op := issSlot.uop.aluOp
+        aluResult := alu.io.result
+      }
 
       // set default result
-      exeResult := alu.io.result.asBits
+      exeResult := aluResult.asBits
 
       // ! BRU
       if (withBRU) {
-        // BRU Section
-        val bru = new BRU
-        val comparator = new Comparator()
-        comparator.io.src1 := regData(0).asUInt
-        comparator.io.src2 := Mux(issSlot.uop.useRd, regData(1).asUInt, imm12)
-        comparator.io.op := issSlot.uop.cmpOp
+        val compareSrc2 =
+          Mux(issSlot.uop.useRd, regData(1).asUInt, imm12)
+        if (config.intIssue.useWeBattleIntegerDatapath) {
+          val branch = new WeBattleBranchExecute
+          branch.io.src1 := regData(0).asUInt
+          branch.io.src2 := compareSrc2
+          branch.io.compareOp := issSlot.uop.cmpOp
+          branch.io.predictTaken := issSlot.uop.predInfo.predictTaken
+          branch.io.predictTarget := issSlot.uop.predInfo.predictAddr
+          branch.io.isBranch := issSlot.uop.isBranch
+          branch.io.isIndirectJump := issSlot.uop.isJR
+          branch.io.isJump := issSlot.uop.isJump
+          branch.io.pc := issSlot.uop.pc
+          branch.io.inst := issSlot.uop.inst
 
-        bru.io.predictJump := issSlot.uop.predInfo.predictTaken
-        bru.io.predictAddr := issSlot.uop.predInfo.predictAddr
-        bru.io.isBranch := issSlot.uop.isBranch
-        bru.io.isJR := issSlot.uop.isJR // JIRL
-        bru.io.isJump := issSlot.uop.isJump // B or BL
-        bru.io.pc := issSlot.uop.pc
-        bru.io.inst := issSlot.uop.inst
-        bru.io.condition := comparator.io.result
-        bru.io.rj := regData(0).asUInt
+          insert(ACTUAL_TARGET) := branch.io.actualTarget
+          insert(ACTUAL_TAKEN) := branch.io.actualTaken
+          insert(MISPREDICT) := branch.io.mispredict
+        } else {
+          val bru = new BRU
+          val comparator = new Comparator()
+          comparator.io.src1 := regData(0).asUInt
+          comparator.io.src2 := compareSrc2
+          comparator.io.op := issSlot.uop.cmpOp
 
-        insert(ACTUAL_TARGET) := bru.io.actualTarget
-        insert(ACTUAL_TAKEN) := comparator.io.result || issSlot.uop.isJR || issSlot.uop.isJump
-        insert(MISPREDICT) := bru.io.mispredict
+          bru.io.predictJump := issSlot.uop.predInfo.predictTaken
+          bru.io.predictAddr := issSlot.uop.predInfo.predictAddr
+          bru.io.isBranch := issSlot.uop.isBranch
+          bru.io.isJR := issSlot.uop.isJR
+          bru.io.isJump := issSlot.uop.isJump
+          bru.io.pc := issSlot.uop.pc
+          bru.io.inst := issSlot.uop.inst
+          bru.io.condition := comparator.io.result
+          bru.io.rj := regData(0).asUInt
+
+          insert(ACTUAL_TARGET) := bru.io.actualTarget
+          insert(ACTUAL_TAKEN) :=
+            comparator.io.result || issSlot.uop.isJR || issSlot.uop.isJump
+          insert(MISPREDICT) := bru.io.mispredict
+        }
 
         // Just set exeResult is okay!
         when(issSlot.uop.isJump || issSlot.uop.isJR) {

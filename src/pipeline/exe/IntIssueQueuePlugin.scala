@@ -29,6 +29,46 @@ class IntIssueQueuePlugin(config: MyCPUConfig)
   // decode index
   object PUSH_INDEXES extends Stageable(Vec(Flow(UInt(log2Up(decodeWidth) bits)), decodeWidth))
 
+  /** N8 integer-only replacement for the inherited generic grant chain. */
+  private def genWeBattleIssueSelect(): Unit = {
+    require(grantPorts.nonEmpty)
+    require(grantPorts.size <= issueWidth)
+
+    val selector = new WeBattleAgeOrderedIssueSelector(depth, grantPorts.size)
+    for (port <- grantPorts.indices) {
+      selector.requests(port) := grantPorts(port)._1.asBits
+      grantPorts(port)._2 := selector.grants(port).asBools
+    }
+    issueMask := selector.grants.map(_.asBits).reduceBalancedTree(_ | _)
+  }
+
+  /** Parallel completion-tag matching for the integer reservation station. */
+  private def genWeBattleGlobalWakeup(
+      prf: PhysRegFilePlugin,
+      operandPorts: Int
+  ): Unit = {
+    val wakeup = new WeBattleWakeupMatrix(
+      depth,
+      operandPorts,
+      prf.clearBusys.size,
+      config.regFile.prfAddrWidth
+    )
+
+    for (broadcast <- prf.clearBusys.indices) {
+      wakeup.broadcastValid(broadcast) := prf.clearBusys(broadcast).valid
+      wakeup.broadcastTags(broadcast) := prf.clearBusys(broadcast).payload
+    }
+
+    for (slot <- 0 until depth; operand <- 0 until operandPorts) {
+      val index = slot * operandPorts + operand
+      wakeup.operandTags(index) := queue(slot).payload.rRegs(operand).payload
+      when(wakeup.wake(index)) {
+        queue(slot).payload.rRegs(operand).valid := True
+        queueNext(slot).payload.rRegs(operand).valid := True
+      }
+    }
+  }
+
   override def build(pipeline: MyCPUCore): Unit = {
     // RENAME
     pipeline.RENAME plug new Area {
@@ -53,8 +93,12 @@ class IntIssueQueuePlugin(config: MyCPUConfig)
 
     // DISPATCH
     pipeline.DISPATCH plug new Area {
-      genIssueSelect()
-      genGlobalWakeup(pipeline.service(classOf[PhysRegFilePlugin]), rPorts)
+      if (config.intIssue.useWeBattleAgeSelector) genWeBattleIssueSelect()
+      else genIssueSelect()
+      val prf = pipeline.service(classOf[PhysRegFilePlugin])
+      if (config.intIssue.useWeBattleWakeupMatrix)
+        genWeBattleGlobalWakeup(prf, rPorts)
+      else genGlobalWakeup(prf, rPorts)
       import pipeline.DISPATCH._
       // 唤醒逻辑：
       // 1. 入队唤醒（dispatch入口读busy）

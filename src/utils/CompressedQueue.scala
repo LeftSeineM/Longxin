@@ -37,7 +37,7 @@ abstract class CompressedQueue[T <: IssueSlot](
   var busyRsps: Vec[Bool] = null // Read from PRF
   def fuMatch(uop: MicroOp): Bool // For overwritten in subclasses
 
-  private val grantPorts = mutable.ArrayBuffer[(Seq[Bool], Vec[Bool])]()
+  protected val grantPorts = mutable.ArrayBuffer[(Seq[Bool], Vec[Bool])]()
   def grantPort(reqs: Seq[Bool]) = {
     val grants = Vec(Bool, reqs.size)
     grantPorts += (reqs -> grants)

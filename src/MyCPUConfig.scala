@@ -134,6 +134,44 @@ object WeBattleProfiles {
   def N7: MyCPUConfig = N6.copy(
     frontend = N6.frontend.copy(useWeBattleCheckpointRAS = true)
   )
+
+  /** N8 replaces the inherited chained integer issue arbiter with the
+    * independently implemented age-ordered prefix selector.
+    */
+  def N8: MyCPUConfig = N7.copy(
+    intIssue = N7.intIssue.copy(
+      useWeBattleAgeSelector = true,
+      useWeBattleWakeupMatrix = true,
+      useWeBattleIntegerDatapath = true
+    )
+  )
+
+  /** Physical ablations only; neither name is a release checkpoint. */
+  def N8IssueAblation: MyCPUConfig = N7.copy(
+    intIssue = N7.intIssue.copy(
+      useWeBattleAgeSelector = true,
+      useWeBattleWakeupMatrix = true
+    )
+  )
+
+  def N8DatapathAblation: MyCPUConfig = N7.copy(
+    intIssue = N7.intIssue.copy(useWeBattleIntegerDatapath = true)
+  )
+
+  /** N9 ownership-head work in progress.  It begins the backend-state batch
+    * with an explicitly-counted ROB store; rename, PRF state and retirement
+    * control join this same profile before N9 is eligible for promotion.
+    */
+  def N9: MyCPUConfig = N8.copy(
+    regFile = N8.regFile.copy(
+      useWeBattleRenameState = true,
+      useWeBattlePhysicalRegisterFile = true
+    ),
+    rob = N8.rob.copy(
+      useWeBattleStorage = true,
+      useWeBattleCommitControl = true
+    )
+  )
 }
 
 final case class FrontendConfig(
@@ -149,7 +187,9 @@ final case class FrontendConfig(
 
 final case class RegFileConfig(
     nArchRegs: Int = 32,
-    nPhysRegs: Int = 31 + 32
+    nPhysRegs: Int = 31 + 32,
+    useWeBattleRenameState: Boolean = false,
+    useWeBattlePhysicalRegisterFile: Boolean = false
 ) {
   val arfAddrWidth = log2Up(nArchRegs)
   val prfAddrWidth = log2Up(nPhysRegs)
@@ -174,7 +214,10 @@ final case class IntIssueConfig(
     csrIdx: Int = 0,
     timerIdx: Int = 1,
     invTLBIdx: Int = 0,
-    depth: Int = 7
+    depth: Int = 7,
+    useWeBattleAgeSelector: Boolean = false,
+    useWeBattleWakeupMatrix: Boolean = false,
+    useWeBattleIntegerDatapath: Boolean = false
 ) extends IssueConfig {
   require(0 <= bruIdx && bruIdx < issueWidth)
   require(0 <= csrIdx && csrIdx < issueWidth)
@@ -200,7 +243,9 @@ final case class MemIssueConfig(
 // Commit
 final case class ROBConfig(
     robDepth: Int = 32,
-    retireWidth: Int = 3
+    retireWidth: Int = 3,
+    useWeBattleStorage: Boolean = false,
+    useWeBattleCommitControl: Boolean = false
 ) {
   val robAddressWidth = log2Up(robDepth)
 }

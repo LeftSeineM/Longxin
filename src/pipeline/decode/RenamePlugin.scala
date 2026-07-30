@@ -44,9 +44,71 @@ class RenamePlugin(config: MyCPUConfig) extends Plugin[DecodePipeline] {
       isRisingOccupancy := True
     }
   }
+  val allocationPorts =
+    Vec(Flow(UInt(prfAddrWidth bits)), decodeWidth)
 
   override def build(pipeline: DecodePipeline): Unit = pipeline.RENAME plug new Area {
     import pipeline.RENAME._
+
+    if (rfConfig.useWeBattleRenameState) {
+      freeList.io.push.foreach(_.setIdle())
+      freeList.io.pop.foreach(_.ready := False)
+      freeList.recover := False
+
+      val decPacket = input(pipeline.signals.DECODE_PACKET)
+      val sourceArch =
+        Vec(Vec(UInt(arfAddrWidth bits), rfConfig.rPortsEachInst), decodeWidth)
+      val destinationArch = Vec(UInt(arfAddrWidth bits), decodeWidth)
+      val destinationValid = Vec(Bool(), decodeWidth)
+
+      for (lane <- 0 until decodeWidth) {
+        val valid = decPacket(lane).valid
+        val uop = decPacket(lane).payload
+        val fields = InstructionParser(uop.inst)
+        sourceArch(lane)(0) := fields.rj
+        sourceArch(lane)(1) := Mux(uop.useRk, fields.rk, fields.rd)
+        destinationArch(lane) := uop.wbAddr
+        destinationValid(lane) :=
+          valid && uop.doRegWrite && uop.wbAddr =/= 0
+      }
+
+      val commit = pipeline.globalService(classOf[CommitPlugin])
+      val renameFire = Bool()
+      val state = new WeBattleRenameState(
+        config,
+        sourceArch.map(_.toSeq),
+        destinationArch.toSeq,
+        destinationValid.toSeq,
+        renameFire,
+        commit.arfCommits.toSeq,
+        commit.recoverPRF
+      )
+
+      val requested = destinationValid.orR
+      val noFreeRegs =
+        arbitration.isValid && requested && !state.canAllocate
+      arbitration.haltItself setWhen noFreeRegs
+      renameFire := arbitration.isValidNotStuck && state.canAllocate
+
+      import pipeline.signals.RENAME_RECORDS
+      for (lane <- 0 until decodeWidth) {
+        insert(RENAME_RECORDS)(lane).rRegs(0) := state.sourcePhys(lane)(0)
+        insert(RENAME_RECORDS)(lane).rRegs(1) := state.sourcePhys(lane)(1)
+        insert(RENAME_RECORDS)(lane).wPrevReg :=
+          state.previousDestination(lane)
+        insert(RENAME_RECORDS)(lane).wReg := state.newDestination(lane)
+        allocationPorts(lane) := state.allocation(lane)
+      }
+
+      val debug_sRAT =
+        out(Bits(prfAddrWidth * (rfConfig.nArchRegs - 1) bits))
+      val debug_aRAT =
+        out(Bits(prfAddrWidth * (rfConfig.nArchRegs - 1) bits))
+      debug_sRAT := state.speculativeMap.asBits
+      debug_aRAT := state.committedMap.asBits
+      pipeline.update_signal("sRAT", debug_sRAT)
+      pipeline.update_signal("aRAT", debug_aRAT)
+    } else {
 
     // TODO: [NOP] remove this debugging code
     val debug_sRAT = out(Bits(prfAddrWidth * (rfConfig.nArchRegs - 1) bits))
@@ -107,6 +169,8 @@ class RenamePlugin(config: MyCPUConfig) extends Plugin[DecodePipeline] {
         when(regWrites(i).req.valid)(popPort <> freeList.io.pop(0))
       }
       popPort.ready := arbitration.isValidNotStuck && wPort.req.valid
+      allocationPorts(i).valid := popPort.fire
+      allocationPorts(i).payload := popPort.payload
       // freeList空了
       noFreeRegs setWhen (arbitration.isValid && wPort.req.valid && !popPort.valid)
       wPort.rsp := popPort.payload
@@ -149,5 +213,6 @@ class RenamePlugin(config: MyCPUConfig) extends Plugin[DecodePipeline] {
     }
     // 预测恢复时freeList也要恢复
     freeList.recover := arfCommit.recoverPRF
+    }
   }
 }

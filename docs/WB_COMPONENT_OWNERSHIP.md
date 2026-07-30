@@ -100,3 +100,18 @@ N10 is also the strict combined performance head: the route-derived
 Fmax/cycle estimate is 0.404% above N7. The memory/MulDiv queue integration and
 `WeBattleMulDivUnit` are present as attributed N10A experiments but are not
 counted until their own later checkpoints pass non-negative routed timing.
+
+## 7. N11 accepted ownership disclosure
+
+N11 accepts the MulDiv issue queue and WeBattle-owned MulDiv command,
+signedness, early-divider, response and wakeup controller. The Xilinx
+multiplier IP and Spinal unsigned-divider arithmetic primitives remain reused
+and attributed.
+
+N11 passes 58/58 functionality, 20/20 performance and routed timing at WNS
++0.009 ns. Its accepted component-weighted coverage is:
+
+`(1,084 + 242) / 4,791 = 27.68%`
+
+N11 is the ownership head. N10 remains the strict performance head because
+N11's combined route-derived score is 0.278% lower.

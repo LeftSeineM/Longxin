@@ -180,16 +180,22 @@ object WeBattleProfiles {
     intIssue = N9.intIssue.copy(useWeBattleQueueState = true)
   )
 
-  /** N10A is the complete three-queue/MDU ablation. It passes simulation but
-    * remains experimental until its physical timing is redesigned.
+  /** N11 adds independently controlled MulDiv scheduling and execution.
     */
-  def N10A: MyCPUConfig = N10.copy(
+  def N11: MyCPUConfig = N10.copy(
     mulDiv = N9.mulDiv.copy(
       useWeBattleQueueState = true,
       useWeBattleExecuteUnit = true
-    ),
+    )
+  )
+
+  /** N12 adds the memory issue queue after N11. */
+  def N12: MyCPUConfig = N11.copy(
     memIssue = N9.memIssue.copy(useWeBattleQueueState = true)
   )
+
+  /** Historical all-at-once diagnosis profile. */
+  def N10A: MyCPUConfig = N12
 
   /** N10 diagnosis profiles; these are not release checkpoints. */
   def N10IntQueueAblation: MyCPUConfig = N10

@@ -140,6 +140,8 @@ object WeBattleMain {
       case "N9" => WeBattleProfiles.N9
       case "N10" => WeBattleProfiles.N10
       case "N10A" => WeBattleProfiles.N10A
+      case "N11" => WeBattleProfiles.N11
+      case "N12" => WeBattleProfiles.N12
       case "N10I" => WeBattleProfiles.N10IntQueueAblation
       case "N10M" => WeBattleProfiles.N10MemQueueAblation
       case "N10D" => WeBattleProfiles.N10MulDivAblation

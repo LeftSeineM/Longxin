@@ -158,6 +158,15 @@ class MyCPUCore(config: MyCPUConfig) extends Component with MultiPipeline {
   val EXE: Stage = null
   val MEM1: Stage = memPipeline.MEM1
   val MEM2: Stage = memPipeline.MEM2
+  if (config.timing.memNotStuckMaxFanout > 0) {
+    // The MEM1 completion permit feeds PRF readiness and every reservation
+    // station wakeup path.  Preserve its same-cycle semantics while allowing
+    // Vivado to replicate the high-fanout combinational driver locally.
+    MEM1.arbitration.notStuck.addAttribute(
+      "max_fanout",
+      config.timing.memNotStuckMaxFanout.toString
+    )
+  }
   val WB: Stage = null
 
 }

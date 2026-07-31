@@ -87,13 +87,14 @@ but loses performance stays an experimental checkpoint until redesigned.
 
 ## 5. Immediate execution order
 
-1. Preserve N9 as the accepted 20.62% ownership checkpoint and N7 as the
-   strict combined performance head.
-2. Preserve accepted N10 as the integer scheduling checkpoint. The original
-   all-at-once N10A experiment remains rejected for negative routed WNS.
-3. Integrate MulDiv and memory scheduling as separate N11/N12 checkpoints so
-   each physical and cycle effect remains attributable.
-4. Keep the previous validated generated RTL package at every accepted
-   checkpoint.
-5. Update the ownership numerator only after the corresponding batch passes
-   every gate.
+1. Preserve N10 as the strict performance head and N12 as the accepted 30.16%
+   ownership head.
+2. Preserve the N11 MulDiv and N12 memory-scheduling packages so every
+   replacement remains individually attributable and reversible.
+3. Implement N13 as one coherent LSU/control cluster, but keep independently
+   selectable sub-boundaries during development so a slow submodule can be
+   rejected without discarding the full batch.
+4. Promote N13 only after 58/58, 20/20 and non-negative routed timing; compare
+   its combined score against both N12 and the N10 performance head.
+5. Keep the previous validated generated RTL package at every accepted
+   checkpoint and update the ownership numerator only after all gates pass.

@@ -191,7 +191,8 @@ object WeBattleProfiles {
 
   /** N12 adds the memory issue queue after N11. */
   def N12: MyCPUConfig = N11.copy(
-    memIssue = N9.memIssue.copy(useWeBattleQueueState = true)
+    memIssue = N9.memIssue.copy(useWeBattleQueueState = true),
+    timing = N11.timing.copy(memNotStuckMaxFanout = 64)
   )
 
   /** Historical all-at-once diagnosis profile. */
@@ -321,7 +322,8 @@ final case class TranslationConfig(
 
 /** Optional FPGA synthesis guidance. Zero leaves the upstream netlist alone. */
 final case class TimingConfig(
-    dispatchValidMaxFanout: Int = 0
+    dispatchValidMaxFanout: Int = 0,
+    memNotStuckMaxFanout: Int = 0
 )
 
 final case class MyCPUConfig(

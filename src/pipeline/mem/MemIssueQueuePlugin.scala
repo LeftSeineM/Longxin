@@ -9,6 +9,7 @@ import NOP.utils._
 import NOP.pipeline._
 import NOP.pipeline.core._
 import NOP.constants.enum._
+import NOP.pipeline.mem.WeBattleMemIssueQueueState
 
 class MemIssueQueuePlugin(config: MyCPUConfig)
     extends CompressedFIFO(
@@ -126,7 +127,16 @@ class MemIssueQueuePlugin(config: MyCPUConfig)
   }
   Component.current.afterElaboration {
     if (config.memIssue.useWeBattleQueueState)
-      genWeBattleQueueState(rPorts)
+      new WeBattleMemIssueQueueState(
+        HardType(MemIssueSlot(config)),
+        queue,
+        queueIO.pushPorts,
+        issueReq,
+        issueFire,
+        queueFlush,
+        wakeupPorts,
+        rPorts
+      )
     else {
       genEnqueueLogic()
       genCompressLogic()

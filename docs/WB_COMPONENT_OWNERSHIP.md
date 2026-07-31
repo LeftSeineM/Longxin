@@ -115,3 +115,21 @@ N11 passes 58/58 functionality, 20/20 performance and routed timing at WNS
 
 N11 is the ownership head. N10 remains the strict performance head because
 N11's combined route-derived score is 0.278% lower.
+
+## 8. N12 accepted ownership disclosure
+
+N12 replaces memory issue-queue state, dense append, oldest-entry removal,
+one-slot compaction, operand wakeup folding and atomic flush with
+`WeBattleMemIssueQueueState`. The surrounding LSU, caches, address-generation
+datapath and physical-register broadcast sources remain inherited and are not
+counted.
+
+N12 passes 58/58 functionality, 20/20 performance and routed timing at WNS
++0.010 ns. All 20 official cycle counts are exactly equal to N11; routed LUT
+use decreases by 3.50%. Its accepted component-weighted coverage is:
+
+`(1,326 + 119) / 4,791 = 30.16%`
+
+N12 is the ownership head and is 0.010% above N11 by the combined routed
+estimate. N10 remains the strict performance head because N12 is 0.268% below
+it.

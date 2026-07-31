@@ -133,3 +133,22 @@ use decreases by 3.50%. Its accepted component-weighted coverage is:
 N12 is the ownership head and is 0.010% above N11 by the combined routed
 estimate. N10 remains the strict performance head because N12 is 0.268% below
 it.
+
+## 9. N13 accepted ownership disclosure
+
+N13 replaces five coherent LSU/perimeter boundaries: effective-address and
+store-alignment generation, memory issue/execute and completion control,
+store-buffer state and forwarding, load extraction/extension, and uncached
+store request/response control. The D-cache arrays, lookup, refill and write
+machinery remain inherited and are not counted.
+
+N13 passes 58/58 functionality, 20/20 performance and routed timing at WNS
++0.020 ns. All official cycle counts are exactly equal to N12 and routed WNS
+improves by 0.010 ns. Its accepted component-weighted coverage is:
+
+`(1,445 + 515) / 4,791 = 40.91%`
+
+N13 is the ownership head and is 0.100% above N12 by the combined routed
+estimate. N10 remains the strict performance head because N13 is 0.168% below
+it. The project continues to disclose its NOP-Core lineage and does not treat
+raw textual churn as proof of originality.

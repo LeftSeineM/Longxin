@@ -195,6 +195,51 @@ object WeBattleProfiles {
     timing = N11.timing.copy(memNotStuckMaxFanout = 64)
   )
 
+  /** N13 replaces the LSU perimeter and memory-control cluster while keeping
+    * the N12 D-cache arrays/refill implementation as a stable anchor.
+    */
+  def N13: MyCPUConfig = N12.copy(
+    memoryControl = MemoryControlConfig(
+      useWeBattleAddressGeneration = true,
+      useWeBattleExecute = true,
+      useWeBattleStoreBuffer = true,
+      useWeBattleLoadPostprocess = true,
+      useWeBattleUncachedAccess = true
+    )
+  )
+
+  /** Development-only timing ablation for the N13 store-buffer boundary. */
+  def N13NoStoreBuffer: MyCPUConfig = N13.copy(
+    memoryControl = N13.memoryControl.copy(
+      useWeBattleStoreBuffer = false
+    )
+  )
+
+  /** Development-only timing ablations for the remaining N13 boundaries. */
+  def N13NoAddressGeneration: MyCPUConfig = N13.copy(
+    memoryControl = N13.memoryControl.copy(
+      useWeBattleAddressGeneration = false
+    )
+  )
+
+  def N13NoExecute: MyCPUConfig = N13.copy(
+    memoryControl = N13.memoryControl.copy(
+      useWeBattleExecute = false
+    )
+  )
+
+  def N13NoLoadPostprocess: MyCPUConfig = N13.copy(
+    memoryControl = N13.memoryControl.copy(
+      useWeBattleLoadPostprocess = false
+    )
+  )
+
+  def N13NoUncachedAccess: MyCPUConfig = N13.copy(
+    memoryControl = N13.memoryControl.copy(
+      useWeBattleUncachedAccess = false
+    )
+  )
+
   /** Historical all-at-once diagnosis profile. */
   def N10A: MyCPUConfig = N12
 
@@ -320,6 +365,15 @@ final case class TranslationConfig(
     contestDirectMode: Boolean = false
 )
 
+/** Independently selectable LSU/control boundaries for N13 development. */
+final case class MemoryControlConfig(
+    useWeBattleAddressGeneration: Boolean = false,
+    useWeBattleExecute: Boolean = false,
+    useWeBattleStoreBuffer: Boolean = false,
+    useWeBattleLoadPostprocess: Boolean = false,
+    useWeBattleUncachedAccess: Boolean = false
+)
+
 /** Optional FPGA synthesis guidance. Zero leaves the upstream netlist alone. */
 final case class TimingConfig(
     dispatchValidMaxFanout: Int = 0,
@@ -354,5 +408,6 @@ final case class MyCPUConfig(
     // TLB
     tlbConfig: TLBConfig = TLBConfig(),
     translation: TranslationConfig = TranslationConfig(),
+    memoryControl: MemoryControlConfig = MemoryControlConfig(),
     timing: TimingConfig = TimingConfig()
 )

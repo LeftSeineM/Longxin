@@ -90,12 +90,22 @@ class MyCPUCore(config: MyCPUConfig) extends Component with MultiPipeline {
     override val WB2: Stage = newStage().setName("MEM_WB2")
 
     plugins ++= List(
-      new AddressGenerationPlugin(config),
+      (if (config.memoryControl.useWeBattleAddressGeneration)
+         new WeBattleAddressGenerationPlugin(config)
+       else new AddressGenerationPlugin(config)),
       new DCachePlugin(config),
-      new UncachedAccessPlugin(config),
-      new LoadPostprocessPlugin(),
-      new StoreBufferPlugin(config),
-      new MemExecutePlugin(config),
+      (if (config.memoryControl.useWeBattleUncachedAccess)
+         new WeBattleUncachedAccessPlugin(config)
+       else new UncachedAccessPlugin(config)),
+      (if (config.memoryControl.useWeBattleLoadPostprocess)
+         new WeBattleLoadPostprocessPlugin()
+       else new LoadPostprocessPlugin()),
+      (if (config.memoryControl.useWeBattleStoreBuffer)
+         new WeBattleStoreBufferPlugin(config)
+       else new StoreBufferPlugin(config)),
+      (if (config.memoryControl.useWeBattleExecute)
+         new WeBattleMemExecutePlugin(config)
+       else new MemExecutePlugin(config)),
       new ExceptionMuxPlugin[MemPipeline](stages.size - 1)
     ).filter(_ != null)
   }

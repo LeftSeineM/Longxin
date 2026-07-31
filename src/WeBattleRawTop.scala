@@ -142,6 +142,12 @@ object WeBattleMain {
       case "N10A" => WeBattleProfiles.N10A
       case "N11" => WeBattleProfiles.N11
       case "N12" => WeBattleProfiles.N12
+      case "N13" => WeBattleProfiles.N13
+      case "N13NOSTORE" => WeBattleProfiles.N13NoStoreBuffer
+      case "N13NOADDR" => WeBattleProfiles.N13NoAddressGeneration
+      case "N13NOEXEC" => WeBattleProfiles.N13NoExecute
+      case "N13NOLOAD" => WeBattleProfiles.N13NoLoadPostprocess
+      case "N13NOUNCACHED" => WeBattleProfiles.N13NoUncachedAccess
       case "N10I" => WeBattleProfiles.N10IntQueueAblation
       case "N10M" => WeBattleProfiles.N10MemQueueAblation
       case "N10D" => WeBattleProfiles.N10MulDivAblation

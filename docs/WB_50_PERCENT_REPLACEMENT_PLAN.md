@@ -87,14 +87,16 @@ but loses performance stays an experimental checkpoint until redesigned.
 
 ## 5. Immediate execution order
 
-1. Preserve N10 as the strict performance head and N12 as the accepted 30.16%
+1. Preserve N10 as the strict performance head and N13 as the accepted 40.91%
    ownership head.
-2. Preserve the N11 MulDiv and N12 memory-scheduling packages so every
+2. Preserve the N11 MulDiv, N12 memory-scheduling and N13 LSU packages so every
    replacement remains individually attributable and reversible.
-3. Implement N13 as one coherent LSU/control cluster, but keep independently
-   selectable sub-boundaries during development so a slow submodule can be
-   rejected without discarding the full batch.
-4. Promote N13 only after 58/58, 20/20 and non-negative routed timing; compare
-   its combined score against both N12 and the N10 performance head.
-5. Keep the previous validated generated RTL package at every accepted
+3. Treat N13 as closed: five independently selectable LSU/control boundaries
+   passed 58/58, 20/20 and routed WNS +0.020 ns without cycle regression.
+4. Implement N14 as a coherent instruction-front-end cluster, starting from
+   the I-cache request/refill controller and BTB lookup/update path. Keep its
+   sub-boundaries independently selectable and preserve N13 as fallback.
+5. Promote N14 only after 58/58, 20/20 and non-negative routed timing; compare
+   its combined score against both N13 and the N10 performance head.
+6. Keep the previous validated generated RTL package at every accepted
    checkpoint and update the ownership numerator only after all gates pass.

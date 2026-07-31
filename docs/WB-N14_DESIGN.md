@@ -1,6 +1,6 @@
 # WB-N14 instruction-front-end replacement
 
-Status: **implementation in progress; no acceptance or performance claim**.
+Status: **accepted ownership checkpoint; 58/58, 20/20 and routed timing pass**.
 
 Baseline: `WB-N13-20PASS`.
 
@@ -60,3 +60,13 @@ N14 receives ownership credit only after:
 - official performance reaches 20/20 with per-test N13/N10 comparison;
 - routed WNS is non-negative at 10 ns with zero routing errors;
 - LUT, FF, BRAM, DSP and raw audit differences are recorded.
+
+All gates passed. N14 is the accepted ownership head at **50.68%**. Every
+official CPU count, SoC count, cache-miss counter and branch-misprediction
+counter is exactly equal to N13. Post-route AggressiveExplore closes timing at
+WNS +0.006 ns, TNS 0 and zero failing endpoints/routing errors.
+
+The routed design uses 45,309 LUTs, 20,518 flip-flops, 30.5 BRAM and 4 DSP.
+Its route-derived Fmax is 100.060 MHz. Because N13 routed at 100.200 MHz with
+the same cycle counts, N14's combined estimate is 0.140% lower. N10 remains
+the strict performance head; N14 is the ownership/submission-integration head.

@@ -1,6 +1,6 @@
 # WB-N14 development progress
 
-Status: **validation in progress; not an accepted release**.
+Status: **accepted; superseded by the formal WB-N14 release report**.
 
 ## Implemented scope
 
@@ -28,9 +28,13 @@ This candidate percentage is not accepted until every release gate passes.
 | Official bitcount smoke | PASS, CPU 23,517 cycles |
 | N13 bitcount comparison | exact cycle/counter match |
 | Independent synthesis | PASS, 0 errors |
-| Official 58 functional | running |
-| Official 20 performance | running |
-| Routed implementation | pending |
+| Official 58 functional | **PASS, 58/58** |
+| Official 20 performance | **PASS, 20/20** |
+| Routed implementation | **PASS, WNS +0.006 ns** |
+
+All 20 official CPU counts, SoC counts, cache-miss counters and branch
+misprediction counters are exactly equal to WB-N13. CPU/SoC geometric means
+remain 172,821.02 / 194,719.81 cycles.
 
 ## Synthesis comparison
 
@@ -56,6 +60,14 @@ with certainty. Promotion still requires a non-negative post-route result.
 
 These are audit metrics, not proof of originality. The primary claim remains
 component-weighted ownership after validation.
+
+## Final routed result
+
+- WNS/TNS/failing endpoints: +0.006 ns / 0 / 0;
+- routing errors: 0;
+- LUT/FF/BRAM/DSP: 45,309 / 20,518 / 30.5 / 4;
+- route-derived Fmax: 100.060 MHz;
+- combined estimate versus N13: 0.998599x (-0.140%).
 
 ## Packaged RTL
 

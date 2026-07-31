@@ -1,6 +1,6 @@
 # WeBattle 50% core-replacement plan
 
-Status: active engineering target, not a completed originality claim.
+Status: **target reached by accepted WB-N14 at 50.68%**.
 
 Upstream remains NOP-Core commit
 `1a5986d9d1ff02d2156fb4d065e5ad0ba0f94495` under the MIT license.
@@ -87,16 +87,17 @@ but loses performance stays an experimental checkpoint until redesigned.
 
 ## 5. Immediate execution order
 
-1. Preserve N10 as the strict performance head and N13 as the accepted 40.91%
+1. Preserve N10 as the strict performance head and N14 as the accepted 50.68%
    ownership head.
-2. Preserve the N11 MulDiv, N12 memory-scheduling and N13 LSU packages so every
+2. Preserve the N11 MulDiv, N12 memory-scheduling, N13 LSU and N14 front-end
+   packages so every
    replacement remains individually attributable and reversible.
 3. Treat N13 as closed: five independently selectable LSU/control boundaries
    passed 58/58, 20/20 and routed WNS +0.020 ns without cycle regression.
-4. Implement N14 as a coherent instruction-front-end cluster, starting from
-   the I-cache request/refill controller and BTB lookup/update path. Keep its
-   sub-boundaries independently selectable and preserve N13 as fallback.
-5. Promote N14 only after 58/58, 20/20 and non-negative routed timing; compare
-   its combined score against both N13 and the N10 performance head.
+4. Treat N14 as closed: its I-cache and predictor/BTB boundaries passed 58/58,
+   20/20 and routed WNS +0.006 ns, reaching 50.68% accepted coverage.
+5. Keep N14's two sub-boundaries independently selectable and preserve N13 as
+   the direct fallback. Further work should first improve N14's route margin,
+   then merge performance changes only when they beat N10 after routing.
 6. Keep the previous validated generated RTL package at every accepted
    checkpoint and update the ownership numerator only after all gates pass.

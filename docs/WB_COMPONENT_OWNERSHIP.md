@@ -152,3 +152,24 @@ N13 is the ownership head and is 0.100% above N12 by the combined routed
 estimate. N10 remains the strict performance head because N13 is 0.168% below
 it. The project continues to disclose its NOP-Core lineage and does not treat
 raw textual churn as proof of originality.
+
+## 10. N14 accepted ownership disclosure
+
+N14 replaces the instruction-cache hit/refill/invalidate controller and the
+complete BTB/global+tournament direction-prediction/history-control boundary.
+Standard RAM primitives remain reused infrastructure; all request, arbitration,
+state-transition, update and recovery control around them is maintained in the
+two WeBattle front-end modules.
+
+N14 passes 58/58 functionality, 20/20 performance and routed timing at WNS
++0.006 ns. Every official cycle and diagnostic counter is exactly equal to
+N13. Its accepted component-weighted coverage is:
+
+`(1,960 + 253 + 215) / 4,791 = 50.68%`
+
+N14 is the first accepted checkpoint above the 50% component-ownership target.
+It uses 580 more LUTs and 17 more flip-flops than N13 and its combined
+route-derived estimate is 0.140% lower because routed WNS is 0.014 ns smaller.
+N10 remains the strict performance head. N14 remains an attributed NOP-Core
+derivative; the 50.68% figure is not a claim that the whole processor was
+written from scratch.

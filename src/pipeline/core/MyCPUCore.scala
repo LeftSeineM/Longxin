@@ -27,10 +27,14 @@ class MyCPUCore(config: MyCPUConfig) extends Component with MultiPipeline {
     plugins ++= List(
       new ProgramCounterPlugin(config.frontend),
       new FetchBufferPlugin(config),
-      new ICachePlugin(config),
+      (if (config.frontend.useWeBattleICache)
+         new WeBattleICachePlugin(config)
+       else new ICachePlugin(config)),
       new ExceptionMuxPlugin[FetchPipeline](stages.size - 1),
       new InstAddrTranslatePlugin(config),
-      new GlobalPredictorBTBPlugin(config.frontend),
+      (if (config.frontend.useWeBattlePredictorBTB)
+         new WeBattlePredictorBTBPlugin(config.frontend)
+       else new GlobalPredictorBTBPlugin(config.frontend)),
       new ReturnAddressStackPlugin(config.frontend)
     ).filter(_ != null)
 

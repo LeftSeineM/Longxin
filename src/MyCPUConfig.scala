@@ -208,6 +208,25 @@ object WeBattleProfiles {
     )
   )
 
+  /** N14 replaces the instruction-cache controller and the complete
+    * BTB/direction-predictor cluster. Each boundary stays separately
+    * selectable for A/B validation against N13.
+    */
+  def N14: MyCPUConfig = N13.copy(
+    frontend = N13.frontend.copy(
+      useWeBattleICache = true,
+      useWeBattlePredictorBTB = true
+    )
+  )
+
+  def N14NoICache: MyCPUConfig = N14.copy(
+    frontend = N14.frontend.copy(useWeBattleICache = false)
+  )
+
+  def N14NoPredictorBTB: MyCPUConfig = N14.copy(
+    frontend = N14.frontend.copy(useWeBattlePredictorBTB = false)
+  )
+
   /** Development-only timing ablation for the N13 store-buffer boundary. */
   def N13NoStoreBuffer: MyCPUConfig = N13.copy(
     memoryControl = N13.memoryControl.copy(
@@ -266,7 +285,9 @@ final case class FrontendConfig(
     fetchWidth: Int = 4,
     fetchBufferDepth: Int = 8,
     useWeBattleFetchQueue: Boolean = false,
-    useWeBattleCheckpointRAS: Boolean = false
+    useWeBattleCheckpointRAS: Boolean = false,
+    useWeBattleICache: Boolean = false,
+    useWeBattlePredictorBTB: Boolean = false
 )
 
 final case class RegFileConfig(

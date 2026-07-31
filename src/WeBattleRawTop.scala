@@ -148,6 +148,9 @@ object WeBattleMain {
       case "N13NOEXEC" => WeBattleProfiles.N13NoExecute
       case "N13NOLOAD" => WeBattleProfiles.N13NoLoadPostprocess
       case "N13NOUNCACHED" => WeBattleProfiles.N13NoUncachedAccess
+      case "N14" => WeBattleProfiles.N14
+      case "N14NOICACHE" => WeBattleProfiles.N14NoICache
+      case "N14NOPRED" => WeBattleProfiles.N14NoPredictorBTB
       case "N10I" => WeBattleProfiles.N10IntQueueAblation
       case "N10M" => WeBattleProfiles.N10MemQueueAblation
       case "N10D" => WeBattleProfiles.N10MulDivAblation

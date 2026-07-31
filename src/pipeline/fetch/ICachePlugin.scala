@@ -25,23 +25,23 @@ final case class CacheOperation() extends Bundle {
 }
 
 class ICachePlugin(config: MyCPUConfig) extends Plugin[FetchPipeline] {
-  private val frontend = config.frontend
-  private val icache = config.frontend.icache
+  protected val frontend = config.frontend
+  protected val icache = config.frontend.icache
 
   // * Cache Valid/DATA/CacheLineInfo area
   // valid有单index清空的可能，多写口
-  val valids = Vec(Vec(RegInit(False), icache.ways), icache.sets) // valids[sets][ways]
-  val dataRAMs =
+  protected val valids = Vec(Vec(RegInit(False), icache.ways), icache.sets) // valids[sets][ways]
+  protected val dataRAMs =
     Seq.fill(icache.ways)(
       new SDPRAM(Vec(BWord(), icache.lineWords), icache.sets, false, useByteEnable = true)
     ) // dataRAMs[ways][sets]
-  val infoRAM = new SDPRAM(CacheLineInfo(icache), icache.sets, false) // CacheLineInfo[sets]
+  protected val infoRAM = new SDPRAM(CacheLineInfo(icache), icache.sets, false) // CacheLineInfo[sets]
 
   // * Cache spans from IF1 to IF2. The following signals are stageable.
-  private object ICACHE_VALIDS extends Stageable(valids.dataType()) // Bool[sets][ways]
+  protected object ICACHE_VALIDS extends Stageable(valids.dataType()) // Bool[sets][ways]
   // BWord[ways][fetchWidth]
-  private object ICACHE_RSPS extends Stageable(Vec(Vec(BWord(), frontend.fetchWidth), icache.ways))
-  private object ICACHE_INFO extends Stageable(CacheLineInfo(icache)) // CacheLineInfo
+  protected object ICACHE_RSPS extends Stageable(Vec(Vec(BWord(), frontend.fetchWidth), icache.ways))
+  protected object ICACHE_INFO extends Stageable(CacheLineInfo(icache)) // CacheLineInfo
 
   // * Cache Interface
   // iBus本身一定是read only，但对外可以转Axi4

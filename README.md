@@ -24,6 +24,17 @@
 均为 0。赛事指定的 Vivado 2023.2 重建与目标板稳定性测试尚未完成，因此上述
 仿真周期不得当作官方实板成绩。
 
+## 下载完整成果
+
+源码可直接克隆本仓库。完整 Vivado 迁移工程、候选提交包、设计报告、
+候选 bitstream 和校验文件统一发布在：
+
+- [WB-N14 public release](https://github.com/LeftSeineM/Longxin/releases/tag/WB-N14-PUBLIC-20260926)
+- [成果文件说明](docs/DELIVERABLES.md)
+
+其中完整迁移包约 360 MiB，保留了成功运行环境所使用的 SoC、testbench、
+58 项功能测试、20 项性能测试、程序镜像、IP、XDC、XPR、实现产物和日志。
+
 ## 微架构
 
 - 4 路取指、3 路译码/重命名、最多 5 个执行通道、最多 3 路顺序退休；
@@ -39,6 +50,8 @@
 - `generated/WB-N14/`：仿真/提交用生成 Verilog；
 - `generated/WB-N14-synth/`：综合观测裁剪版生成 Verilog；
 - `reports/WB-N14/`：58/58、20/20、PPA 与来源覆盖证据；
+- `reports/WB-N14/full_soc_2025_2/`：完整 SoC 原始时序、路由、bus-skew、
+  资源与 CDC 签核报告；
 - `docs/`：架构、版本演进和独立组件边界；
 - `harness/`：生成、对比和布局布线脚本。
 
@@ -57,10 +70,13 @@ java -jar sbt-launch-1.9.9.jar "runMain NOP.WeBattleMain N14 synth"
 
 ## 封版指纹
 
-- 仿真/提交 `wb_raw_top.v`：
+- Windows 提交包中的仿真/提交 `wb_raw_top.v`（CRLF）：
   `58BA10635A9E575AF5C393705AC96A68ED873E658A37AA3BA589869813149F7F`
-- 综合观测裁剪版 `wb_raw_top.v`：
+- Windows 提交包中的综合观测裁剪版 `wb_raw_top.v`（CRLF）：
   `4180578FF78A01A1A65E2C22DB046FB42FDB744EDFFB1918929C92063E308A53`
+
+GitHub checkout 通过 `.gitattributes` 统一为 LF，因此仓库文件的字节级哈希会不同，
+但RTL内容与成功工程在忽略行尾差异后完全一致。
 
 ## 合规边界
 
